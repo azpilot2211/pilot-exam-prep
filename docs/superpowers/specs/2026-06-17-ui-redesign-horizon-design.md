@@ -80,12 +80,16 @@ Slide-out drawer triggered by the hamburger:
 - Body scroll lock while open. Accessible: `role="dialog"`, `aria-label`, focus moves into the panel, hamburger has `aria-label`.
 
 ### `src/app/page.tsx` (modify) — Home
-- **Logged-out hero:** dark section over `public/hero-runway.jpg` (`next/image` fill) with a navy gradient overlay (`from-[#0B1120]/85 to-[#0B1120]/95`) for text contrast. Amber pill badge ("FAA Private Pilot · Written Test"), large headline, subhead, dual CTA (Start studying free / Sign in), and a live stat line (`{chapters} chapters · {totalQuestions} practice questions · Audio included`).
+- **Logged-out hero:** dark section over `public/hero-runway.jpg` (`next/image` fill) — a golden-hour runway photo — with a navy gradient overlay (`from-[#0B1120]/55 via-[#0B1120]/35 to-[#0B1120]/92`) for text contrast. Amber pill badge ("FAA Private Pilot · Written Test"), headline **"Cleared for takeoff on your written exam."**, subhead, dual CTA (Start studying free / Sign in), and a "No credit card to start" trust line.
+- **Frosted stat strip:** anchored to the bottom of the hero, a translucent bar (`bg-slate-900/55`, hairline top border) with three stats: `{totalQuestions} questions` · `{chapters} chapters` · `Audio every lesson`. Gives the hero a confident, dashboard-like footing.
 - **Logged-in header + readiness widget:** restyled; the overall % rendered with the new `ReadinessRing` instead of plain text.
+- **"Choose a topic" section header** with chapter count above the grid.
 - **Chapter grid:** uses the upgraded `ChapterCard` (icons + tints).
 
+> If a suitable royalty-free runway photo cannot be sourced, the hero falls back to a flat `--hero-bg` navy surface with the same overlay/copy — the layout does not depend on the image.
+
 ### `src/components/ChapterCard.tsx` (modify)
-Adds the chapter icon chip (from `chapterMeta`) beside the title. Cleaner Ready ✓ / In-progress badges, smoother `MasteryBar`, paired Study/Quiz buttons. Same props plus nothing new (icon derived from `slug`).
+A **3px tint accent stripe** across the top of the card in the chapter's color (from `chapterMeta`) — the detail that makes the grid read as designed. Below it: the chapter icon chip beside the title + lesson count, cleaner Ready ✓ / In-progress badges, smoother `MasteryBar`, paired Study/Quiz buttons, and a subtle `hover:shadow-md` lift. Same props (icon + tint derived from `slug`).
 
 ### `src/components/ReadinessRing.tsx` (new)
 Small SVG donut showing a percentage in the center. Props: `percent`, `size` (default 74), `stroke`. Sky fill on a slate-100 track. Used on the home readiness widget and the account page.
