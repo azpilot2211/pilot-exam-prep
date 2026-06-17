@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "pipeline": "npx tsx pipeline/run.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.2",
