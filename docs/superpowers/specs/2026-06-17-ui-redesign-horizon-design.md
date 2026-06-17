@@ -80,8 +80,9 @@ Slide-out drawer triggered by the hamburger:
 - Body scroll lock while open. Accessible: `role="dialog"`, `aria-label`, focus moves into the panel, hamburger has `aria-label`.
 
 ### `src/app/page.tsx` (modify) — Home
-- **Logged-out hero:** dark section over `public/hero-runway.jpg` (`next/image` fill) — a golden-hour runway photo — with a navy gradient overlay (`from-[#0B1120]/55 via-[#0B1120]/35 to-[#0B1120]/92`) for text contrast. Amber pill badge ("FAA Private Pilot · Written Test"), headline **"Cleared for takeoff on your written exam."**, subhead, dual CTA (Start studying free / Sign in), and a "No credit card to start" trust line.
+- **Logged-out hero:** dark section over `public/hero-runway.jpg` (`next/image` fill) — a golden-hour runway photo — with a navy gradient overlay (`from-[#0B1120]/55 via-[#0B1120]/35 to-[#0B1120]/92`) for text contrast. Amber pill badge **"FAA Written Test Prep"** (brand-level, exam-agnostic — must NOT hard-code "Private Pilot" since IFR/Commercial tracks are planned), headline **"Cleared for takeoff on your written exam."**, subhead, dual CTA (Start studying free / Sign in), and a "No credit card to start" trust line.
 - **Frosted stat strip:** anchored to the bottom of the hero, a translucent bar (`bg-slate-900/55`, hairline top border) with three stats: `{totalQuestions} questions` · `{chapters} chapters` · `Audio every lesson`. Gives the hero a confident, dashboard-like footing.
+- **Hero proportions:** generous height (≈400px on desktop, taller on mobile via `min-h`) so the CTA cluster + trust line have clear breathing room above the stat strip — they must never crowd it. The runway artwork fills the full hero height.
 - **Logged-in header + readiness widget:** restyled; the overall % rendered with the new `ReadinessRing` instead of plain text.
 - **"Choose a topic" section header** with chapter count above the grid.
 - **Chapter grid:** uses the upgraded `ChapterCard` (icons + tints).
@@ -122,6 +123,14 @@ POST. Auth-gates the user, reads `stripe_customer_id` from `profiles`, creates a
 - No new question content or pipeline changes.
 - No theme toggle / user-selectable dark mode (the dark hero is fixed, not a mode).
 - No change to auth, quiz scoring, or subscription gating logic.
+- **Multiple exam tracks** (IFR, Commercial, etc.) are a planned future feature, NOT part of this redesign. No exam selector or exam data dimension is built now.
+
+## Future Considerations
+
+The product will eventually offer multiple exam tracks (Private Pilot, IFR, Commercial…). This redesign keeps all top-level branding exam-agnostic so that work doesn't force a rebrand:
+- Hero badge and copy say "FAA Written Test Prep" / "your written exam," never "Private Pilot."
+- The logo, nav, and `/account` page are exam-neutral.
+- When tracks are added, the likely shape is an **exam selector** (in the drawer and/or a landing picker) plus an **exam dimension** in the data model (`exams → chapters → questions`), with the drawer's "Sections" list and the home grid scoped to the selected exam. The current per-chapter `chapterMeta` map and components carry over unchanged.
 
 ## Testing
 
