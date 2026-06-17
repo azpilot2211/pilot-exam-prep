@@ -67,7 +67,7 @@ export function LessonCard({
           isSubscriber ? (
             <button
               onClick={handleDownload}
-              className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+              className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-800 hover:underline cursor-pointer transition-colors"
               title="Download MP3"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
