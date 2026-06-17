@@ -18,12 +18,19 @@ async function main() {
   const illustrationsOnly = process.argv.includes("--illustrations-only");
   const limitArg = process.argv.find((a) => a.startsWith("--limit="));
   const limit = limitArg ? Number(limitArg.split("=")[1]) : Infinity;
+  const fromArg = process.argv.find((a) => a.startsWith("--from="));
+  const fromRef = fromArg ? fromArg.split("=")[1] : null;
+  let skipping = fromRef !== null;
 
   const admin = adminClient();
   let processed = 0;
 
   for (const question of seedQuestions) {
     if (processed >= limit) break;
+    if (skipping) {
+      if (question.sourceRef === fromRef) skipping = false;
+      else { console.log(`skip   ${question.sourceRef} (before --from)`); continue; }
+    }
 
     if (illustrationsOnly) {
       // Look up the existing question_id, regenerate only the SVG
