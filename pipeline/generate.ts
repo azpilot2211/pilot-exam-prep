@@ -3,6 +3,7 @@ import { env } from "./env";
 import type { SeedQuestion } from "./types";
 import { explanationSystemPrompt, explanationUserPrompt } from "./prompts";
 import { parseGeneratedExplanation, type GeneratedExplanation } from "./schema";
+import { withRetry } from "./retry";
 
 function extractJson(text: string): unknown {
   const start = text.indexOf("{");
@@ -17,6 +18,7 @@ export async function generateExplanation(
   question: SeedQuestion,
   client = new Anthropic({ apiKey: env.anthropicKey() })
 ): Promise<GeneratedExplanation> {
+  return withRetry(async () => {
   const stream = client.messages.stream({
     model: "claude-opus-4-8",
     max_tokens: 4096,
@@ -37,4 +39,5 @@ export async function generateExplanation(
     throw new Error(`Generated explanation failed validation: ${parsed.error.message}`);
   }
   return parsed.data;
+  });
 }
