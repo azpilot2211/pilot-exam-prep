@@ -63,6 +63,42 @@ export async function getQuestion(questionId: string): Promise<{
   };
 }
 
+export type Lesson = {
+  questionId: string;
+  explanation: string;
+  illustrationSvg: string | null;
+  audioUrl: string | null;
+};
+
+export async function getPublishedLessons(chapterId: string): Promise<Lesson[]> {
+  const questions = await getPublishedQuestions(chapterId);
+  if (questions.length === 0) return [];
+
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("question_content")
+    .select("question_id, explanation, illustration_svg, audio_url")
+    .in("question_id", questions.map((q) => q.id))
+    .eq("published", true);
+
+  const contentMap = new Map(
+    (data ?? []).map((c) => [c.question_id, c])
+  );
+
+  return questions
+    .map((q) => {
+      const content = contentMap.get(q.id);
+      if (!content) return null;
+      return {
+        questionId: q.id,
+        explanation: content.explanation ?? "",
+        illustrationSvg: content.illustration_svg ?? null,
+        audioUrl: content.audio_url ?? null,
+      };
+    })
+    .filter((l): l is Lesson => l !== null);
+}
+
 export async function getUserAllMastery(
   userId: string
 ): Promise<Map<string, { correct: number; total: number }>> {
