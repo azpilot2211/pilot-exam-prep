@@ -1,16 +1,14 @@
 "use client";
 export const dynamic = "force-dynamic";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
+export default function UpdatePasswordPage() {
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const supabase = createBrowserClient(
@@ -22,7 +20,7 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.updateUser({ password });
     if (error) {
       setError(error.message);
       setLoading(false);
@@ -40,8 +38,8 @@ export default function LoginPage() {
             <span className="text-2xl" aria-hidden="true">✈️</span>
             <span className="font-bold text-slate-900 tracking-tight">Flying Ace Exams</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Sign in</h1>
-          <p className="text-sm text-slate-500 mt-1">Welcome back — let&apos;s keep studying.</p>
+          <h1 className="text-2xl font-bold text-slate-900">Set new password</h1>
+          <p className="text-sm text-slate-500 mt-1">Choose a new password for your account.</p>
         </div>
         {error && (
           <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
@@ -50,27 +48,13 @@ export default function LoginPage() {
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-              required
-            />
-          </div>
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <label className="block text-sm font-medium text-slate-700">Password</label>
-              <Link href="/forgot-password" className="text-xs text-sky-600 hover:underline">
-                Forgot password?
-              </Link>
-            </div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">New password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                minLength={6}
                 className="w-full rounded-lg border border-slate-300 px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
                 required
               />
@@ -98,15 +82,9 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full bg-sky-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-sky-700 disabled:opacity-50 transition-colors"
           >
-            {loading ? "Signing in…" : "Sign in"}
+            {loading ? "Updating…" : "Update password"}
           </button>
         </form>
-        <p className="text-sm text-center text-slate-500">
-          No account?{" "}
-          <Link href="/signup" className="text-sky-600 hover:underline font-medium">
-            Sign up
-          </Link>
-        </p>
       </div>
     </main>
   );
