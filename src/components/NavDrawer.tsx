@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { createBrowserClient } from "@supabase/ssr";
@@ -15,6 +15,7 @@ interface Props {
 export function NavDrawer({ isLoggedIn, chapters }: Props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -22,6 +23,7 @@ export function NavDrawer({ isLoggedIn, chapters }: Props) {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
+    if (open) panelRef.current?.focus();
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
@@ -55,9 +57,12 @@ export function NavDrawer({ isLoggedIn, chapters }: Props) {
         <div className="fixed inset-0 z-50">
           <div className="absolute inset-0 bg-slate-900/40" onClick={close} aria-hidden="true" />
           <aside
+            ref={panelRef}
+            tabIndex={-1}
             role="dialog"
+            aria-modal="true"
             aria-label="Navigation menu"
-            className="absolute right-0 top-0 h-full w-72 max-w-[80vw] bg-white shadow-xl flex flex-col"
+            className="absolute right-0 top-0 h-full w-72 max-w-[80vw] bg-white shadow-xl flex flex-col outline-none"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
               <Logo size={24} showWordmark wordmarkClassName="text-sm" />
