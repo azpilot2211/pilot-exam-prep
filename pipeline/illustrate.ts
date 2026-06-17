@@ -20,7 +20,7 @@ export async function generateIllustration(
   return withRetry(async () => {
     const stream = client.messages.stream({
       model: "claude-opus-4-8",
-      max_tokens: 4096,
+      max_tokens: 8192,
       thinking: { type: "adaptive" },
       output_config: { effort: "high" },
       system: illustrationSystemPrompt(),
