@@ -99,6 +99,25 @@ export async function getPublishedLessons(chapterId: string): Promise<Lesson[]> 
     .filter((l): l is Lesson => l !== null);
 }
 
+export async function getPublishedQuestionCounts(): Promise<Map<string, number>> {
+  const supabase = await createClient();
+  const { data: published } = await supabase
+    .from("question_content")
+    .select("question_id")
+    .eq("published", true);
+  const publishedIds = (published ?? []).map((r) => r.question_id);
+  if (publishedIds.length === 0) return new Map();
+  const { data: questions } = await supabase
+    .from("questions")
+    .select("chapter_id")
+    .in("id", publishedIds);
+  const counts = new Map<string, number>();
+  for (const q of questions ?? []) {
+    counts.set(q.chapter_id, (counts.get(q.chapter_id) ?? 0) + 1);
+  }
+  return counts;
+}
+
 export async function getUserAllMastery(
   userId: string
 ): Promise<Map<string, { correct: number; total: number }>> {

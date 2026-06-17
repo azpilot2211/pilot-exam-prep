@@ -7,15 +7,16 @@ interface Props {
   title: string;
   description: string | null;
   mastery: { correct: number; total: number } | null;
+  questionCount: number;
 }
 
-export function ChapterCard({ slug, title, description, mastery }: Props) {
+export function ChapterCard({ slug, title, description, mastery, questionCount }: Props) {
   const hasStarted = mastery != null && mastery.total > 0;
   const percent = hasStarted ? masteryPercent(mastery!.correct, mastery!.total) : 0;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-5 hover:border-sky-200 transition-all">
-      <div className="flex items-start justify-between gap-2 mb-2">
+    <div className="bg-white border border-slate-200 rounded-2xl p-5 hover:border-sky-200 transition-all flex flex-col">
+      <div className="flex items-start justify-between gap-2 mb-1">
         <h2 className="font-semibold text-slate-900 text-base leading-snug">{title}</h2>
         {hasStarted && (
           <span
@@ -29,13 +30,17 @@ export function ChapterCard({ slug, title, description, mastery }: Props) {
           </span>
         )}
       </div>
+      {questionCount > 0 && (
+        <p className="text-xs text-slate-400 mb-1">{questionCount} lesson{questionCount !== 1 ? "s" : ""}</p>
+      )}
       {description && (
         <p className="text-sm text-slate-400 mb-4 leading-snug">{description}</p>
       )}
+      <div className="flex-1" />
       {hasStarted ? (
         <MasteryBar percent={percent} label={`${mastery!.total} answered`} />
       ) : (
-        <p className="text-xs text-slate-400 mt-3">Not started</p>
+        <p className="text-xs text-slate-400 mt-2">Not started</p>
       )}
       <div className="flex gap-2 mt-4">
         <Link
