@@ -14,6 +14,7 @@ import {
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
+  const force = process.argv.includes("--force");
   const limitArg = process.argv.find((a) => a.startsWith("--limit="));
   const limit = limitArg ? Number(limitArg.split("=")[1]) : Infinity;
 
@@ -25,7 +26,7 @@ async function main() {
     const version = sourceVersion(question);
     const existing = await existingVersion(admin, question.sourceRef);
 
-    if (existing.version === version && existing.hasContent) {
+    if (!force && existing.version === version && existing.hasContent) {
       console.log(`skip   ${question.sourceRef} (unchanged)`);
       continue;
     }
