@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -36,9 +37,8 @@ export default function LoginPage() {
     <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-6">
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl" aria-hidden="true">✈️</span>
-            <span className="font-bold text-slate-900 tracking-tight">Flying Ace Exams</span>
+          <div className="mb-4">
+            <Logo size={26} showWordmark />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">Sign in</h1>
           <p className="text-sm text-slate-500 mt-1">Welcome back — let&apos;s keep studying.</p>
