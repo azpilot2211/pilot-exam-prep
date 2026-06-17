@@ -1,6 +1,9 @@
 "use client";
 import { useRef, useState } from "react";
 
+// Module-level singleton — only one audio plays at a time across all instances
+let _currentAudio: HTMLAudioElement | null = null;
+
 interface Props {
   src: string;
 }
@@ -23,8 +26,12 @@ export function AudioPlayer({ src }: Props) {
     if (!audio) return;
     if (playing) {
       audio.pause();
-      setPlaying(false);
     } else {
+      // pause any other playing audio first
+      if (_currentAudio && _currentAudio !== audio) {
+        _currentAudio.pause();
+      }
+      _currentAudio = audio;
       audio.play().then(() => setPlaying(true)).catch(() => {});
     }
   };
@@ -81,7 +88,8 @@ export function AudioPlayer({ src }: Props) {
         src={src}
         onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime ?? 0)}
         onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
-        onEnded={() => { setPlaying(false); setCurrentTime(0); }}
+        onPause={() => setPlaying(false)}
+        onEnded={() => { setPlaying(false); setCurrentTime(0); if (_currentAudio === audioRef.current) _currentAudio = null; }}
         className="hidden"
       />
     </div>

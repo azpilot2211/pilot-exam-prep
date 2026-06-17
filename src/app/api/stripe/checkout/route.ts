@@ -34,15 +34,25 @@ export async function POST() {
 
   const origin = process.env.NEXT_PUBLIC_APP_URL ?? "https://flyingaceexams.com";
 
-  const session = await getStripe().checkout.sessions.create({
-    customer: customerId,
-    mode: "subscription",
-    line_items: [{ price: PRICE_ID, quantity: 1 }],
-    success_url: `${origin}/subscribe/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/subscribe`,
-    allow_promotion_codes: true,
-    metadata: { supabase_user_id: user.id },
-  });
+  if (!PRICE_ID) {
+    return NextResponse.json({ error: "Stripe price not configured" }, { status: 500 });
+  }
+
+  let session;
+  try {
+    session = await getStripe().checkout.sessions.create({
+      customer: customerId,
+      mode: "subscription",
+      line_items: [{ price: PRICE_ID, quantity: 1 }],
+      success_url: `${origin}/subscribe/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/subscribe`,
+      allow_promotion_codes: true,
+      metadata: { supabase_user_id: user.id },
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Stripe error";
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
 
   return NextResponse.json({ url: session.url });
 }

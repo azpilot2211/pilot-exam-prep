@@ -6,14 +6,19 @@ export function SubscribeButton() {
 
   const handleClick = async () => {
     setLoading(true);
-    const res = await fetch("/api/stripe/checkout", { method: "POST" });
-    const { url, error } = await res.json();
-    if (error || !url) {
+    try {
+      const res = await fetch("/api/stripe/checkout", { method: "POST" });
+      const body = await res.json();
+      if (!res.ok || body.error || !body.url) {
+        alert(body.error ?? "Something went wrong. Please try again.");
+        setLoading(false);
+        return;
+      }
+      window.location.href = body.url;
+    } catch {
       alert("Something went wrong. Please try again.");
       setLoading(false);
-      return;
     }
-    window.location.href = url;
   };
 
   return (
