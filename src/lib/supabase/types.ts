@@ -46,6 +46,7 @@ export interface Database {
           figure_image_url: string | null;
           display_order: number;
           content_version: string | null;
+          source_ref: string | null;
           created_at: string;
         };
         Insert: {
@@ -57,6 +58,7 @@ export interface Database {
           figure_image_url?: string | null;
           display_order?: number;
           content_version?: string | null;
+          source_ref?: string | null;
           created_at?: string;
         };
         Update: {
@@ -68,6 +70,7 @@ export interface Database {
           figure_image_url?: string | null;
           display_order?: number;
           content_version?: string | null;
+          source_ref?: string | null;
           created_at?: string;
         };
         Relationships: [
