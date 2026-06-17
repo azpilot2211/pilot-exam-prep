@@ -1,4 +1,6 @@
 import { getChapterBySlug, getPublishedLessons } from "@/lib/queries";
+import { getSubscription } from "@/lib/subscription";
+import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { LessonCard } from "@/components/LessonCard";
@@ -12,7 +14,15 @@ export default async function StudyGuidePage({ params }: Props) {
   const chapter = await getChapterBySlug(chapterSlug);
   if (!chapter) return notFound();
 
-  const lessons = await getPublishedLessons(chapter.id);
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const [lessons, sub] = await Promise.all([
+    getPublishedLessons(chapter.id),
+    user ? getSubscription() : Promise.resolve(null),
+  ]);
+
+  const isSubscriber = sub?.isSubscriber ?? false;
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-8 pb-28">
@@ -50,6 +60,7 @@ export default async function StudyGuidePage({ params }: Props) {
               explanation={lesson.explanation}
               illustrationSvg={lesson.illustrationSvg}
               audioUrl={lesson.audioUrl}
+              isSubscriber={isSubscriber}
             />
           ))}
         </div>

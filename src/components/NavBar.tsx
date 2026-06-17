@@ -26,6 +26,12 @@ export async function NavBar() {
               >
                 Progress
               </Link>
+              <Link
+                href="/subscribe"
+                className="text-sm font-semibold text-sky-600 hover:text-sky-800 transition-colors"
+              >
+                Pro
+              </Link>
               <SignOutButton />
             </>
           ) : (
