@@ -63,7 +63,7 @@ export default async function HomePage() {
               </Link>
               <Link
                 href="/login"
-                className="px-6 py-3 bg-white/40 text-slate-100 border border-slate-900/90 rounded-xl font-semibold text-sm hover:bg-white/80 transition-colors"
+                className="px-6 py-3 bg-white/50 text-black-700 border border-slate-900/90 rounded-xl font-semibold text-sm hover:bg-white/70 transition-colors"
               >
                 Sign in
               </Link>
