@@ -34,7 +34,7 @@ export default async function HomePage() {
     <main>
       {/* Hero — logged-out visitors, full bleed */}
       {!user && (
-        <section className="relative overflow-hidden min-h-[460px] flex flex-col">
+        <section className="relative overflow-hidden min-h-screen flex flex-col">
           <div
             className="absolute inset-0 bg-[var(--hero-bg)] bg-cover bg-center"
             style={{ backgroundImage: "url('/hero-runway.jpg')" }}
