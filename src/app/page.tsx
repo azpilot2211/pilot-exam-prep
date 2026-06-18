@@ -44,7 +44,7 @@ export default async function HomePage() {
             className="absolute inset-0 bg-gradient-to-b from-[#0B1120]/55 via-[#0B1120]/35 to-[#0B1120]/92"
             aria-hidden="true"
           />
-          <div className="relative flex-1 flex flex-col items-center justify-center text-center px-20 pt-14 pb-16">
+          <div className="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-20 pt-14 pb-16">
             <span className="inline-block text-[11px] tracking-wide text-amber-300 border border-amber-400/50 px-3 py-1 rounded-full mb-5">
               FAA Written Test Prep
             </span>
@@ -90,7 +90,7 @@ export default async function HomePage() {
       )}
 
       {/* Inner content — constrained width with padding */}
-      <div className="px-20">
+      <div className="px-4 sm:px-20">
         {/* Logged-in header */}
         {user && (
           <div className="pt-8 pb-6">
@@ -145,7 +145,7 @@ export default async function HomePage() {
 
       {/* Chapter grid — full bleed with inner padding */}
       {chapters.length > 0 && (
-        <div className={`px-20 grid grid-cols-1 sm:grid-cols-2 gap-4 ${!user ? "pb-12" : "pb-8"}`}>
+        <div className={`px-4 sm:px-20 grid grid-cols-1 sm:grid-cols-2 gap-4 ${!user ? "pb-12" : "pb-8"}`}>
           {chapters.map((chapter) => (
             <ChapterCard
               key={chapter.id}
