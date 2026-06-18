@@ -114,9 +114,6 @@ export function NavDrawer({ isLoggedIn, chapters }: Props) {
                 <Link href="/progress" onClick={close} className="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm text-slate-700">
                   Progress
                 </Link>
-                <Link href="/subscribe" onClick={close} className="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm font-semibold text-sky-600">
-                  Pro
-                </Link>
                 <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-sm text-slate-500">
                   Log out
                 </button>

@@ -1,7 +1,6 @@
-import { getChapterBySlug, getPublishedLessons } from "@/lib/queries";
-import { getSubscription } from "@/lib/subscription";
-import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
+import { getChapterBySlug, getPublishedLessons, getFreeChapterSlugs } from "@/lib/queries";
+import { getTier, hasAccess } from "@/lib/entitlement";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { LessonCard } from "@/components/LessonCard";
 
@@ -14,15 +13,18 @@ export default async function StudyGuidePage({ params }: Props) {
   const chapter = await getChapterBySlug(chapterSlug);
   if (!chapter) return notFound();
 
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  const [lessons, sub] = await Promise.all([
+  const [lessons, tier, freeSlugs] = await Promise.all([
     getPublishedLessons(chapter.id),
-    user ? getSubscription() : Promise.resolve(null),
+    getTier(),
+    getFreeChapterSlugs(),
   ]);
 
-  const isSubscriber = sub?.isSubscriber ?? false;
+  // Free tier may only open the sample chapters; Basic+ opens all.
+  if (!hasAccess(tier, "basic") && !freeSlugs.includes(chapterSlug)) {
+    redirect("/course");
+  }
+
+  const isPro = hasAccess(tier, "pro");
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-8 pb-28">
@@ -60,7 +62,7 @@ export default async function StudyGuidePage({ params }: Props) {
               explanation={lesson.explanation}
               illustrationSvg={lesson.illustrationSvg}
               audioUrl={lesson.audioUrl}
-              isSubscriber={isSubscriber}
+              isPro={isPro}
             />
           ))}
         </div>

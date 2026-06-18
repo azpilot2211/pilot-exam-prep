@@ -9,19 +9,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Sign in to download" }, { status: 401 });
   }
 
-  // Check subscription
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: profile } = await (supabase as any)
     .from("profiles")
-    .select("is_subscriber")
+    .select("tier")
     .eq("id", user.id)
     .maybeSingle();
 
-  if (!profile?.is_subscriber) {
-    return NextResponse.json(
-      { error: "Pro subscription required" },
-      { status: 403 }
-    );
+  if (profile?.tier !== "pro") {
+    return NextResponse.json({ error: "Pro plan required" }, { status: 403 });
   }
 
   const audioUrl = request.nextUrl.searchParams.get("url");

@@ -1,6 +1,7 @@
-import { getChapterBySlug, getPublishedQuestions, getQuestion } from "@/lib/queries";
+import { getChapterBySlug, getPublishedQuestions, getQuestion, getFreeChapterSlugs } from "@/lib/queries";
+import { getTier, hasAccess } from "@/lib/entitlement";
 import { QuizView } from "@/components/QuizView";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 interface Props {
   params: Promise<{ chapterSlug: string }>;
@@ -10,6 +11,11 @@ export default async function QuizPage({ params }: Props) {
   const { chapterSlug } = await params;
   const chapter = await getChapterBySlug(chapterSlug);
   if (!chapter) return notFound();
+
+  const [tier, freeSlugs] = await Promise.all([getTier(), getFreeChapterSlugs()]);
+  if (!hasAccess(tier, "basic") && !freeSlugs.includes(chapterSlug)) {
+    redirect("/course");
+  }
 
   const questions = await getPublishedQuestions(chapter.id);
   if (questions.length === 0) {

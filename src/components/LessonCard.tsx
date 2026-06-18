@@ -9,7 +9,7 @@ interface Props {
   explanation: string;
   illustrationSvg: string | null;
   audioUrl: string | null;
-  isSubscriber: boolean;
+  isPro: boolean;
 }
 
 export function LessonCard({
@@ -19,7 +19,7 @@ export function LessonCard({
   explanation,
   illustrationSvg,
   audioUrl,
-  isSubscriber,
+  isPro,
 }: Props) {
   const handleDownload = () => {
     if (!audioUrl) return;
@@ -64,7 +64,7 @@ export function LessonCard({
         </Link>
 
         {audioUrl && (
-          isSubscriber ? (
+          isPro ? (
             <button
               onClick={handleDownload}
               className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-800 hover:underline cursor-pointer transition-colors"
@@ -78,7 +78,7 @@ export function LessonCard({
             </button>
           ) : (
             <Link
-              href="/subscribe"
+              href="/course"
               className="flex items-center gap-1 text-xs text-slate-400 hover:text-sky-600 transition-colors"
               title="Pro feature"
             >

@@ -14,4 +14,5 @@ export function getStripe(): Stripe {
   return _stripe;
 }
 
-export const PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID ?? "";
+export const PRICE_BASIC = process.env.STRIPE_PRICE_BASIC ?? "";
+export const PRICE_PRO = process.env.STRIPE_PRICE_PRO ?? "";

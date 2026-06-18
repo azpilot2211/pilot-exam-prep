@@ -2,12 +2,11 @@ export const dynamic = "force-dynamic";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getChapters, getUserAllMastery } from "@/lib/queries";
-import { getSubscription } from "@/lib/subscription";
+import { getTier, hasAccess } from "@/lib/entitlement";
 import { getFocusAreas } from "@/lib/focusAreas";
 import { masteryPercent } from "@/lib/scoring";
 import { chapterMeta } from "@/lib/chapterMeta";
 import { ReadinessRing } from "@/components/ReadinessRing";
-import { ManageBillingButton } from "@/components/ManageBillingButton";
 import { SignOutButton } from "@/components/SignOutButton";
 import Link from "next/link";
 
@@ -18,10 +17,10 @@ export default async function AccountPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/account");
 
-  const [chapters, masteryMap, sub] = await Promise.all([
+  const [chapters, masteryMap, tier] = await Promise.all([
     getChapters(),
     getUserAllMastery(user.id),
-    getSubscription(),
+    getTier(),
   ]);
 
   let totalCorrect = 0;
@@ -37,7 +36,7 @@ export default async function AccountPage() {
   const memberSince = user.created_at
     ? new Date(user.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" })
     : null;
-  const isSubscriber = sub?.isSubscriber ?? false;
+  const isPro = hasAccess(tier, "pro");
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-8">
@@ -53,9 +52,9 @@ export default async function AccountPage() {
               {memberSince && <p className="text-slate-400 text-xs mt-0.5">Member since {memberSince}</p>}
             </div>
           </div>
-          {isSubscriber && (
-            <span className="flex-shrink-0 text-xs font-semibold text-[#0B1120] bg-amber-400 px-3 py-1 rounded-full">
-              PRO
+          {tier !== "free" && (
+            <span className="flex-shrink-0 text-xs font-semibold text-[#0B1120] bg-amber-400 px-3 py-1 rounded-full uppercase">
+              {tier}
             </span>
           )}
         </div>
@@ -116,14 +115,19 @@ export default async function AccountPage() {
 
         {/* Actions */}
         <div className="px-5 py-4 border-t border-slate-100 flex items-center gap-3">
-          {isSubscriber ? (
-            <ManageBillingButton />
-          ) : (
+          {isPro ? (
             <Link
-              href="/subscribe"
+              href="/downloads"
               className="text-xs font-semibold text-sky-600 border border-sky-200 px-4 py-2 rounded-lg hover:bg-sky-50 transition-colors"
             >
-              Upgrade to Pro
+              Course downloads
+            </Link>
+          ) : (
+            <Link
+              href="/course"
+              className="text-xs font-semibold text-sky-600 border border-sky-200 px-4 py-2 rounded-lg hover:bg-sky-50 transition-colors"
+            >
+              {tier === "free" ? "Get the course" : "Upgrade to Pro"}
             </Link>
           )}
           <SignOutButton />

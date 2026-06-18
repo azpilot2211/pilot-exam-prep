@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createClient } from "@supabase/supabase-js";
+import { parseTier } from "@/lib/entitlement";
 import type Stripe from "stripe";
 
 // Use the service role key to bypass RLS in webhook handler
@@ -11,26 +12,13 @@ function adminClient() {
   );
 }
 
-async function setSubscriber(
-  supabaseUserId: string,
-  isSubscriber: boolean,
-  subscriptionId: string | null,
-  subscriptionStatus: string
-) {
+async function setTier(supabaseUserId: string, tier: "basic" | "pro") {
   const admin = adminClient();
   await admin.from("profiles").upsert({
     id: supabaseUserId,
-    is_subscriber: isSubscriber,
-    subscription_id: subscriptionId,
-    subscription_status: subscriptionStatus,
+    tier,
     updated_at: new Date().toISOString(),
   });
-}
-
-async function getUserIdFromCustomer(customerId: string): Promise<string | null> {
-  const customer = await getStripe().customers.retrieve(customerId);
-  if (customer.deleted) return null;
-  return (customer as Stripe.Customer).metadata?.supabase_user_id ?? null;
 }
 
 export async function POST(request: NextRequest) {
@@ -52,37 +40,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  switch (event.type) {
-    case "checkout.session.completed": {
-      const session = event.data.object as Stripe.Checkout.Session;
-      const userId = session.metadata?.supabase_user_id;
-      const subId = typeof session.subscription === "string"
-        ? session.subscription
-        : session.subscription?.id ?? null;
-      if (userId) {
-        await setSubscriber(userId, true, subId, "active");
-      }
-      break;
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object as Stripe.Checkout.Session;
+    const userId = session.metadata?.supabase_user_id;
+    const tier = parseTier(session.metadata?.tier);
+    if (userId && (tier === "basic" || tier === "pro")) {
+      await setTier(userId, tier);
     }
-
-    case "customer.subscription.updated": {
-      const sub = event.data.object as Stripe.Subscription;
-      const userId = await getUserIdFromCustomer(sub.customer as string);
-      if (userId) {
-        const active = ["active", "trialing"].includes(sub.status);
-        await setSubscriber(userId, active, sub.id, sub.status);
-      }
-      break;
-    }
-
-    case "customer.subscription.deleted": {
-      const sub = event.data.object as Stripe.Subscription;
-      const userId = await getUserIdFromCustomer(sub.customer as string);
-      if (userId) {
-        await setSubscriber(userId, false, null, "canceled");
-      }
-      break;
-    }
+    // unknown/missing tier: log and no-op (Stripe retries are harmless)
   }
 
   return NextResponse.json({ received: true });
