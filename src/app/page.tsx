@@ -31,10 +31,10 @@ export default async function HomePage() {
   const totalQuestions = Array.from(questionCounts.values()).reduce((s, n) => s + n, 0);
 
   return (
-    <main className="max-w-4xl mx-auto px-4">
-      {/* Hero — logged-out visitors */}
+    <main>
+      {/* Hero — logged-out visitors, full bleed */}
       {!user && (
-        <section className="relative mt-4 rounded-lg overflow-hidden min-h-[460px] flex flex-col">
+        <section className="relative overflow-hidden min-h-[460px] flex flex-col">
           <div
             className="absolute inset-0 bg-[var(--hero-bg)] bg-cover bg-center"
             style={{ backgroundImage: "url('/hero-runway.jpg')" }}
@@ -89,69 +89,74 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Logged-in header */}
-      {user && (
-        <div className="pt-8 pb-6">
-          <h1 className="text-2xl font-bold text-slate-900">Your Exam Prep</h1>
-          <p className="text-slate-400 mt-1 text-sm">Master every topic before test day.</p>
-        </div>
-      )}
+      {/* Inner content — constrained width with padding */}
+      <div className="max-w-4xl mx-auto px-4">
+        {/* Logged-in header */}
+        {user && (
+          <div className="pt-8 pb-6">
+            <h1 className="text-2xl font-bold text-slate-900">Your Exam Prep</h1>
+            <p className="text-slate-400 mt-1 text-sm">Master every topic before test day.</p>
+          </div>
+        )}
 
-      {/* Overall readiness widget */}
-      {user && totalAnswered > 0 && (
-        <div className="bg-white border border-slate-200 rounded-lg p-5 mb-6 flex items-center gap-5">
-          <ReadinessRing percent={overallPercent} />
-          <div className="flex-1">
-            <p className="text-sm font-medium text-slate-500">Overall Readiness</p>
-            <p className="text-xs text-slate-400 mt-1">
-              {totalCorrect} of {totalAnswered} questions correct
+        {/* Overall readiness widget */}
+        {user && totalAnswered > 0 && (
+          <div className="bg-white border border-slate-200 rounded-lg p-5 mb-6 flex items-center gap-5">
+            <ReadinessRing percent={overallPercent} />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-slate-500">Overall Readiness</p>
+              <p className="text-xs text-slate-400 mt-1">
+                {totalCorrect} of {totalAnswered} questions correct
+              </p>
+            </div>
+            <Link
+              href="/progress"
+              className="bg-sky-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-sky-700 transition-colors"
+            >
+              View progress →
+            </Link>
+          </div>
+        )}
+
+        {/* First-time logged-in prompt */}
+        {user && totalAnswered === 0 && chapters.length > 0 && (
+          <div className="bg-sky-50 border border-sky-100 rounded-lg p-5 mb-6">
+            <p className="text-sm font-semibold text-sky-800">Ready to start?</p>
+            <p className="text-sm text-sky-600 mt-1">
+              Pick any chapter below — study the lesson, then take the quiz to track your mastery.
             </p>
           </div>
-          <Link
-            href="/progress"
-            className="bg-sky-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-sky-700 transition-colors"
-          >
-            View progress →
-          </Link>
-        </div>
-      )}
+        )}
 
-      {/* First-time logged-in prompt */}
-      {user && totalAnswered === 0 && chapters.length > 0 && (
-        <div className="bg-sky-50 border border-sky-100 rounded-lg p-5 mb-6">
-          <p className="text-sm font-semibold text-sky-800">Ready to start?</p>
-          <p className="text-sm text-sky-600 mt-1">
-            Pick any chapter below — study the lesson, then take the quiz to track your mastery.
+        {/* Section header */}
+        {chapters.length > 0 && (
+          <div className={`flex items-baseline justify-between ${!user ? "mt-10" : ""} mb-3`}>
+            <h2 className="text-sm font-semibold text-slate-900">Choose a topic</h2>
+            <span className="text-xs text-slate-400">{chapters.length} chapters</span>
+          </div>
+        )}
+
+        {chapters.length === 0 && (
+          <p className="text-center text-slate-400 mt-16 text-sm">
+            No chapters yet — run the pipeline to generate content.
           </p>
-        </div>
-      )}
-
-      {/* Section header */}
-      {chapters.length > 0 && (
-        <div className={`flex items-baseline justify-between ${!user ? "mt-10" : ""} mb-3`}>
-          <h2 className="text-sm font-semibold text-slate-900">Choose a topic</h2>
-          <span className="text-xs text-slate-400">{chapters.length} chapters</span>
-        </div>
-      )}
-
-      {/* Chapter grid */}
-      <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${!user ? "pb-12" : "pb-8"}`}>
-        {chapters.map((chapter) => (
-          <ChapterCard
-            key={chapter.id}
-            slug={chapter.slug}
-            title={chapter.title}
-            description={chapter.description}
-            mastery={masteryMap.get(chapter.id) ?? null}
-            questionCount={questionCounts.get(chapter.id) ?? 0}
-          />
-        ))}
+        )}
       </div>
 
-      {chapters.length === 0 && (
-        <p className="text-center text-slate-400 mt-16 text-sm">
-          No chapters yet — run the pipeline to generate content.
-        </p>
+      {/* Chapter grid — full bleed with inner padding */}
+      {chapters.length > 0 && (
+        <div className={`px-4 grid grid-cols-1 sm:grid-cols-2 gap-4 ${!user ? "pb-12" : "pb-8"}`}>
+          {chapters.map((chapter) => (
+            <ChapterCard
+              key={chapter.id}
+              slug={chapter.slug}
+              title={chapter.title}
+              description={chapter.description}
+              mastery={masteryMap.get(chapter.id) ?? null}
+              questionCount={questionCounts.get(chapter.id) ?? 0}
+            />
+          ))}
+        </div>
       )}
     </main>
   );
