@@ -16,6 +16,17 @@ export async function getChapters(): Promise<Chapter[]> {
   return data ?? [];
 }
 
+/** Slugs of the two lowest-display_order chapters — the free sample set. */
+export async function getFreeChapterSlugs(): Promise<string[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("chapters")
+    .select("slug")
+    .order("display_order")
+    .limit(2);
+  return (data ?? []).map((c) => c.slug);
+}
+
 export async function getChapterBySlug(slug: string): Promise<Chapter | null> {
   const supabase = await createClient();
   const { data } = await supabase
