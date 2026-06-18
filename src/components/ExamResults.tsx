@@ -54,7 +54,7 @@ export function ExamResults({
         <p className="text-sm font-semibold text-slate-900 mb-3">Results by section</p>
         <div className="space-y-2">
           {Object.entries(breakdown)
-            .sort(([, a], [, b]) => a.correct / a.total - b.correct / b.total)
+            .sort(([, a], [, b]) => (a.total > 0 ? a.correct / a.total : 0) - (b.total > 0 ? b.correct / b.total : 0))
             .map(([slug, { correct, total: t }]) => {
               const pct = t > 0 ? Math.round((correct / t) * 100) : 0;
               return (

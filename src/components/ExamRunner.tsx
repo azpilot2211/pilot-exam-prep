@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { ExamCountdown } from "./ExamCountdown";
 import type { ExamQuestion } from "@/lib/examUtils";
 
@@ -14,6 +14,7 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
   const [answers, setAnswers] = useState<Map<string, string>>(new Map());
   const [flagged, setFlagged] = useState<Set<string>>(new Set());
   const [submitted, setSubmitted] = useState(false);
+  const submittedRef = useRef(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
   const current = items[index];
@@ -22,10 +23,11 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
   const unanswered = items.filter((q) => !answers.has(q.id)).length;
 
   const doSubmit = useCallback(() => {
-    if (submitted) return;
+    if (submittedRef.current) return;
+    submittedRef.current = true;
     setSubmitted(true);
     onComplete(answers);
-  }, [submitted, answers, onComplete]);
+  }, [answers, onComplete]);
 
   const handleManualSubmit = () => {
     if (unanswered > 0) {

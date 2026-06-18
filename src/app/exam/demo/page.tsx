@@ -14,6 +14,7 @@ export default async function ExamDemoPage() {
 
   const allQuestions = await getQuestionsForExam();
   const demoQuestions = buildDemoExam(allQuestions, 10);
+  if (demoQuestions.length === 0) redirect("/");
 
   return <DemoExamClient questions={demoQuestions} />;
 }

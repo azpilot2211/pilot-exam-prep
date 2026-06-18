@@ -11,6 +11,7 @@ export default async function ExamTakePage() {
 
   const allQuestions = await getQuestionsForExam();
   const examQuestions = buildExam(allQuestions, 60);
+  if (examQuestions.length === 0) redirect("/exam");
 
   return <ExamTakeClient questions={examQuestions} durationSeconds={9000} />;
 }

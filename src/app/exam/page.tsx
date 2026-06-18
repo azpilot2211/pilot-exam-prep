@@ -53,7 +53,7 @@ export default async function ExamPage() {
                   Section breakdown
                 </p>
                 {Object.entries(lastResult.breakdown)
-                  .sort(([, a], [, b]) => a.correct / a.total - b.correct / b.total)
+                  .sort(([, a], [, b]) => (a.total > 0 ? a.correct / a.total : 0) - (b.total > 0 ? b.correct / b.total : 0))
                   .map(([slug, { correct, total }]) => {
                     const pct = Math.round((correct / total) * 100);
                     return (
