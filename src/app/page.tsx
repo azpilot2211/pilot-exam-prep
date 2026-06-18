@@ -145,7 +145,7 @@ export default async function HomePage() {
 
       {/* Chapter grid — full bleed with inner padding */}
       {chapters.length > 0 && (
-        <div className={`px-4 sm:px-20 grid grid-cols-1 sm:grid-cols-2 gap-4 ${!user ? "pb-12" : "pb-8"}`}>
+        <div className={`px-4 sm:px-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ${!user ? "pb-12" : "pb-8"}`}>
           {chapters.map((chapter) => (
             <ChapterCard
               key={chapter.id}
