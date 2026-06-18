@@ -31,10 +31,11 @@ export async function saveExamResult(
   } = await supabase.auth.getUser();
   if (!user) return;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await (supabase as any).from("exam_results").insert({
+  const { error } = await (supabase as any).from("exam_results").insert({
     user_id: user.id,
     score,
     total,
     breakdown,
   });
+  if (error) console.error("saveExamResult failed:", error.message);
 }
