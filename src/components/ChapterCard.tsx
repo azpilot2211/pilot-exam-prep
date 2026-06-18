@@ -49,11 +49,11 @@ export function ChapterCard({ slug, title, description, mastery, questionCount }
           <p className="text-sm text-slate-400 mb-4 leading-snug">{description}</p>
         )}
         <div className="flex-1" />
-        {hasStarted ? (
-          <MasteryBar percent={percent} label={`${mastery!.total} answered`} />
-        ) : (
-          <p className="text-xs text-slate-400 mt-2">Not started</p>
-        )}
+        <MasteryBar
+          percent={percent}
+          label={hasStarted ? `${mastery!.total} of ${questionCount} answered` : "Not started"}
+          questionCount={questionCount}
+        />
         <div className="flex gap-2 mt-4">
           <Link
             href={`/study/${slug}`}

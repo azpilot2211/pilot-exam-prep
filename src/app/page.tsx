@@ -1,7 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
-import { getChapters, getUserAllMastery, getPublishedQuestionCounts } from "@/lib/queries";
+import { getChapters, getUserAllMastery, getPublishedQuestionCounts, getDailyQuestion } from "@/lib/queries";
 import { ChapterCard } from "@/components/ChapterCard";
 import { ReadinessRing } from "@/components/ReadinessRing";
+import { DailyChallenge } from "@/components/DailyChallenge";
 import { masteryPercent } from "@/lib/scoring";
 import Link from "next/link";
 
@@ -11,12 +12,13 @@ export default async function HomePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [chapters, questionCounts, masteryMap] = await Promise.all([
+  const [chapters, questionCounts, masteryMap, dailyQuestion] = await Promise.all([
     getChapters(),
     getPublishedQuestionCounts(),
     user
       ? getUserAllMastery(user.id)
       : Promise.resolve(new Map<string, { correct: number; total: number }>()),
+    getDailyQuestion(),
   ]);
 
   let totalCorrect = 0;
@@ -142,6 +144,16 @@ export default async function HomePage() {
           </p>
         )}
       </div>
+
+      {/* Daily challenge banner */}
+      {dailyQuestion && chapters.length > 0 && (
+        <DailyChallenge
+          question={dailyQuestion.question}
+          options={dailyQuestion.options}
+          chapterTitle={dailyQuestion.chapterTitle}
+          chapterSlug={dailyQuestion.chapterSlug}
+        />
+      )}
 
       {/* Chapter grid — full bleed with inner padding */}
       {chapters.length > 0 && (
