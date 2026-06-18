@@ -19,3 +19,22 @@ export async function recordAttempt(
     is_correct: isCorrect,
   });
 }
+
+export async function saveExamResult(
+  score: number,
+  total: number,
+  breakdown: Record<string, { correct: number; total: number }>
+): Promise<void> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await (supabase as any).from("exam_results").insert({
+    user_id: user.id,
+    score,
+    total,
+    breakdown,
+  });
+}

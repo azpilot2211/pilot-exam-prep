@@ -1,5 +1,6 @@
 import { createClient } from "./supabase/server";
 import type { Database } from "./supabase/types";
+import type { ExamQuestion } from "./examUtils";
 
 export type Chapter = Database["public"]["Tables"]["chapters"]["Row"];
 export type Question = Database["public"]["Tables"]["questions"]["Row"];
@@ -191,4 +192,70 @@ export async function getUserAllMastery(
     if (a.is_correct) s.correct++;
   }
   return byChapter;
+}
+
+export type ExamResultRow = {
+  id: string;
+  score: number;
+  total: number;
+  taken_at: string;
+  breakdown: Record<string, { correct: number; total: number }>;
+};
+
+export async function getQuestionsForExam(): Promise<ExamQuestion[]> {
+  const supabase = await createClient();
+
+  const { data: published } = await supabase
+    .from("question_content")
+    .select("question_id")
+    .eq("published", true);
+  const ids = (published ?? []).map((r) => r.question_id);
+  if (ids.length === 0) return [];
+
+  const [questionsRes, optionsRes] = await Promise.all([
+    supabase
+      .from("questions")
+      .select("id, stem, chapters!inner(slug, title)")
+      .in("id", ids),
+    supabase
+      .from("answer_options")
+      .select("question_id, label, text, is_correct, why")
+      .in("question_id", ids)
+      .order("label"),
+  ]);
+
+  const optsByQ = new Map<string, ExamQuestion["options"]>();
+  for (const o of optionsRes.data ?? []) {
+    if (!optsByQ.has(o.question_id)) optsByQ.set(o.question_id, []);
+    optsByQ.get(o.question_id)!.push({
+      label: o.label,
+      text: o.text,
+      is_correct: o.is_correct,
+      why: o.why ?? null,
+    });
+  }
+
+  return (questionsRes.data ?? []).map((q) => {
+    const chapter = q.chapters as { slug: string; title: string };
+    return {
+      id: q.id,
+      stem: q.stem,
+      chapterSlug: chapter.slug,
+      chapterTitle: chapter.title,
+      options: optsByQ.get(q.id) ?? [],
+    };
+  });
+}
+
+export async function getLastExamResult(userId: string): Promise<ExamResultRow | null> {
+  const supabase = await createClient();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data } = await (supabase as any)
+    .from("exam_results")
+    .select("id, score, total, taken_at, breakdown")
+    .eq("user_id", userId)
+    .order("taken_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  return (data as ExamResultRow | null) ?? null;
 }
