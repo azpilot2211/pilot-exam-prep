@@ -37,7 +37,7 @@ export default async function HomePage() {
         <section className="relative overflow-hidden min-h-screen flex flex-col">
           <div
             className="absolute inset-0 bg-[var(--hero-bg)] bg-cover bg-center"
-            style={{ backgroundImage: "url('/hero-runway.jpg')" }}
+            style={{ backgroundImage: "url('/hero-runway.webp')" }}
             aria-hidden="true"
           />
           <div
