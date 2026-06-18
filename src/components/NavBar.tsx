@@ -15,7 +15,7 @@ export async function NavBar() {
     <nav className="bg-white border-b border-slate-200 px-4 py-3 sticky top-0 z-30">
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Logo size={26} showWordmark wordmarkClassName="text-sm" />
+          <Logo size={40} showWordmark wordmarkClassName="text-[17.5px]" />
         </Link>
         <NavDrawer
           isLoggedIn={!!user}

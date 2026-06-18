@@ -8,7 +8,7 @@ interface LogoProps {
 
 export function Logo({ size = 32, showWordmark = false, wordmarkClassName = "" }: LogoProps) {
   return (
-    <span className="flex items-center gap-2">
+    <span className="flex items-end gap-2">
       <Image
         src="/logo.png"
         alt="Flying Ace Exams"
