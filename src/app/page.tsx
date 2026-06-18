@@ -34,7 +34,7 @@ export default async function HomePage() {
     <main className="max-w-4xl mx-auto px-4">
       {/* Hero — logged-out visitors */}
       {!user && (
-        <section className="relative mt-4 rounded-3xl overflow-hidden min-h-[460px] flex flex-col">
+        <section className="relative mt-4 rounded-lg overflow-hidden min-h-[460px] flex flex-col">
           <div
             className="absolute inset-0 bg-[var(--hero-bg)] bg-cover bg-center"
             style={{ backgroundImage: "url('/hero-runway.jpg')" }}
@@ -57,13 +57,13 @@ export default async function HomePage() {
             <div className="mt-8 flex items-center justify-center gap-3">
               <Link
                 href="/signup"
-                className="px-6 py-3 bg-sky-500 text-white rounded-xl font-semibold text-sm hover:bg-sky-400 transition-colors"
+                className="px-6 py-3 bg-sky-500 text-white rounded-lg font-semibold text-sm hover:bg-sky-400 transition-colors"
               >
                 Start studying free →
               </Link>
               <Link
                 href="/login"
-                className="px-6 py-3 bg-white/90 text-black-700 border border-slate-400/30 rounded-xl font-semibold text-sm hover:bg-white/70 transition-colors"
+                className="px-6 py-3 bg-white/90 text-black-700 border border-slate-400/30 rounded-lg font-semibold text-sm hover:bg-white/70 transition-colors"
               >
                 Sign in
               </Link>
@@ -99,7 +99,7 @@ export default async function HomePage() {
 
       {/* Overall readiness widget */}
       {user && totalAnswered > 0 && (
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 flex items-center gap-5">
+        <div className="bg-white border border-slate-200 rounded-lg p-5 mb-6 flex items-center gap-5">
           <ReadinessRing percent={overallPercent} />
           <div className="flex-1">
             <p className="text-sm font-medium text-slate-500">Overall Readiness</p>
@@ -109,7 +109,7 @@ export default async function HomePage() {
           </div>
           <Link
             href="/progress"
-            className="bg-sky-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-sky-700 transition-colors"
+            className="bg-sky-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-sky-700 transition-colors"
           >
             View progress →
           </Link>
@@ -118,7 +118,7 @@ export default async function HomePage() {
 
       {/* First-time logged-in prompt */}
       {user && totalAnswered === 0 && chapters.length > 0 && (
-        <div className="bg-sky-50 border border-sky-100 rounded-2xl p-5 mb-6">
+        <div className="bg-sky-50 border border-sky-100 rounded-lg p-5 mb-6">
           <p className="text-sm font-semibold text-sky-800">Ready to start?</p>
           <p className="text-sm text-sky-600 mt-1">
             Pick any chapter below — study the lesson, then take the quiz to track your mastery.
