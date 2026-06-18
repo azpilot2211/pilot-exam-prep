@@ -56,21 +56,38 @@ export default async function HomePage() {
             <p className="mt-4 text-slate-300 text-base max-w-xl mx-auto leading-relaxed">
               FAA knowledge test prep lessons, audio explanations, and instant-feedback quizzes — one topic at a time.
             </p>
-            <div className="mt-8 flex items-center justify-center gap-3">
-              <Link
-                href="/signup"
-                className="px-6 py-3 bg-sky-500 text-white rounded-lg font-semibold text-sm hover:bg-sky-400 transition-colors"
-              >
-                Start studying free →
-              </Link>
-              <Link
-                href="/login"
-                className="px-6 py-3 bg-white/90 text-black-700 border border-slate-400/30 rounded-lg font-semibold text-sm hover:bg-white/70 transition-colors"
-              >
-                Sign in
-              </Link>
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <div className="flex items-center justify-center gap-3">
+                <Link
+                  href="/signup"
+                  className="px-6 py-3 bg-sky-500 text-white rounded-lg font-semibold text-sm hover:bg-sky-400 transition-colors"
+                >
+                  Start studying free →
+                </Link>
+                <Link
+                  href="/login"
+                  className="px-6 py-3 bg-white/90 text-black-700 border border-slate-400/30 rounded-lg font-semibold text-sm hover:bg-white/70 transition-colors"
+                >
+                  Sign in
+                </Link>
+              </div>
+              <div className="flex items-center justify-center gap-4 mt-1">
+                <Link
+                  href="/exam/demo"
+                  className="text-sky-300 text-sm hover:text-sky-200 underline-offset-2 hover:underline transition-colors"
+                >
+                  Try a 10-question practice exam →
+                </Link>
+                <span className="text-slate-600 text-xs">·</span>
+                <Link
+                  href="/course"
+                  className="text-slate-300 text-sm hover:text-slate-200 underline-offset-2 hover:underline transition-colors"
+                >
+                  View pricing
+                </Link>
+              </div>
             </div>
-            <p className="mt-4 text-xs text-slate-400">No credit card to start</p>
+            <p className="mt-2 text-xs text-slate-400">No credit card to start</p>
           </div>
           {totalQuestions > 0 && (
             <div className="relative bg-slate-900/55 border-t border-slate-300/15 grid grid-cols-3">
