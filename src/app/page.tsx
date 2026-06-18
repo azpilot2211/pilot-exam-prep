@@ -52,7 +52,7 @@ export default async function HomePage() {
               Cleared for takeoff on your written exam.
             </h1>
             <p className="mt-4 text-slate-300 text-base max-w-xl mx-auto leading-relaxed">
-              AI-built lessons, audio explanations, and instant-feedback quizzes — one topic at a time.
+              FAA knowledge test prep lessons, audio explanations, and instant-feedback quizzes — one topic at a time.
             </p>
             <div className="mt-8 flex items-center justify-center gap-3">
               <Link
