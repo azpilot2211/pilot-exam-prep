@@ -6,7 +6,7 @@ interface LogoProps {
   wordmarkClassName?: string;
 }
 
-export function Logo({ size = 26, showWordmark = false, wordmarkClassName = "" }: LogoProps) {
+export function Logo({ size = 32, showWordmark = false, wordmarkClassName = "" }: LogoProps) {
   return (
     <span className="flex items-center gap-2">
       <Image
