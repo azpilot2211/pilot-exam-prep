@@ -2,10 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { createBrowserClient } from "@supabase/ssr";
-import { useRouter } from "next/navigation";
 import { chapterMeta } from "@/lib/chapterMeta";
 import { Logo } from "./Logo";
+import { SignOutButton } from "./SignOutButton";
 
 const AVATAR_BG: Record<string, string> = {
   sky: "bg-sky-500",
@@ -30,7 +29,6 @@ interface Props {
 
 export function NavDrawer({ isLoggedIn, chapters, userInfo }: Props) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
   const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -47,17 +45,6 @@ export function NavDrawer({ isLoggedIn, chapters, userInfo }: Props) {
   }, [open]);
 
   const close = () => setOpen(false);
-
-  const handleSignOut = async () => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-    await supabase.auth.signOut();
-    close();
-    router.push("/login");
-    router.refresh();
-  };
 
   const avatarBg = AVATAR_BG[userInfo?.avatarColor ?? "sky"] ?? "bg-sky-500";
   const initials = ((userInfo?.displayName ?? userInfo?.email ?? "?").slice(0, 2)).toUpperCase();
@@ -114,17 +101,7 @@ export function NavDrawer({ isLoggedIn, chapters, userInfo }: Props) {
                 <p className={`truncate ${userInfo.displayName ? "text-xs text-slate-400" : "text-sm font-medium text-slate-900"}`}>
                   {userInfo.email}
                 </p>
-                {isLoggedIn && (
-                  <button
-                    onClick={handleSignOut}
-                    className="text-sm text-slate-500 hover:text-slate-700 transition-colors mt-0.5"
-                  >
-                    Sign out
-                  </button>
-                )}
-              </div>
-            </div>
-          )}    
+                <SignOutButton onSignOut={close} />
               </div>
             </div>
           )}
