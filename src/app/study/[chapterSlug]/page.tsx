@@ -28,6 +28,12 @@ export default async function StudyGuidePage({ params }: Props) {
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-8 pb-28">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors mb-6"
+      >
+        ← Back to chapters
+      </Link>
       <div className="mb-8">
         <p className="text-xs font-semibold text-sky-600 uppercase tracking-wide mb-1">
           Study Guide
