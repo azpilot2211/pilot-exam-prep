@@ -13,16 +13,10 @@ import {
 
 const NAV_ITEMS = [
   {
-    label: "Flight Deck",
-    icon: LayoutDashboard,
-    href: "/dashboard",
-    match: (p: string) => p === "/dashboard",
-  },
-  {
     label: "Study Plan",
     icon: BookOpen,
     href: "/dashboard",
-    match: (p: string) => p.startsWith("/study") || p.startsWith("/quiz"),
+    match: (p: string) => p === "/dashboard" || p.startsWith("/study") || p.startsWith("/quiz"),
   },
   {
     label: "Practice Exam",
@@ -82,6 +76,13 @@ export function Sidebar({ overallPct, displayName, userEmail, avatarColor }: Pro
 
       {/* Nav items */}
       <ul className="flex-1 px-3 space-y-0.5 overflow-y-auto">
+        {/* Flight Deck — static label, not a link */}
+        <li>
+          <div className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-500 cursor-default select-none">
+            <LayoutDashboard size={16} className="flex-shrink-0" />
+            Flight Deck
+          </div>
+        </li>
         {NAV_ITEMS.map(({ label: navLabel, icon: Icon, href, match }) => {
           const active = match(pathname);
           return (
