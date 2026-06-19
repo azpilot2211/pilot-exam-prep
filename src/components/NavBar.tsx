@@ -37,7 +37,7 @@ export async function NavBar() {
           )}
           <Link
             href="/course"
-            className="hidden sm:block text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors"
+            className="hidden sm:block px-4 py-2 bg-white text-sky-600 border border-sky-600 rounded-lg text-sm font-semibold hover:bg-sky-50 transition-colors"
           >
             Pricing
           </Link>
