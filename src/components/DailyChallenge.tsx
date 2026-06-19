@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Zap } from "lucide-react";
 import type { Question, AnswerOption } from "@/lib/queries";
 
 interface Props {
@@ -47,10 +48,13 @@ export function DailyChallenge({ question, options, chapterTitle }: Props) {
         <div className="px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] font-bold tracking-widest uppercase text-sky-200">
-                Daily Challenge
+              <span className="flex items-center gap-1.5 bg-white/20 px-2.5 py-1 rounded-full">
+                <Zap className="w-3 h-3 text-amber-300 fill-amber-300 flex-shrink-0" />
+                <span className="text-[11px] font-bold tracking-widest uppercase text-white">
+                  Daily Challenge
+                </span>
               </span>
-              <span className="text-[10px] text-sky-300">&mdash; {dateLabel}</span>
+              <span className="text-[10px] text-sky-300">{dateLabel}</span>
             </div>
             <p className="text-sm sm:text-base font-medium leading-snug text-white line-clamp-2">
               {question.stem}
@@ -72,10 +76,13 @@ export function DailyChallenge({ question, options, chapterTitle }: Props) {
           <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <span className="text-[10px] font-bold tracking-widest uppercase text-sky-600">
-                  Daily Challenge
+                <span className="inline-flex items-center gap-1.5 bg-sky-50 border border-sky-100 px-2.5 py-1 rounded-full">
+                  <Zap className="w-3 h-3 text-amber-400 fill-amber-400 flex-shrink-0" />
+                  <span className="text-[11px] font-bold tracking-widest uppercase text-sky-700">
+                    Daily Challenge
+                  </span>
                 </span>
-                <p className="text-xs text-slate-400 mt-0.5">{chapterTitle}</p>
+                <p className="text-xs text-slate-400 mt-1.5">{chapterTitle}</p>
               </div>
               <button
                 onClick={handleClose}
