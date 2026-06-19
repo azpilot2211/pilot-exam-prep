@@ -71,23 +71,7 @@ export default async function HomePage() {
                   Sign in
                 </Link>
               </div>
-              <div className="flex items-center justify-center gap-4 mt-1">
-                <Link
-                  href="/exam/demo"
-                  className="text-sky-300 text-sm hover:text-sky-200 underline-offset-2 hover:underline transition-colors"
-                >
-                  Try a 10-question practice exam →
-                </Link>
-                <span className="text-slate-600 text-xs">·</span>
-                <Link
-                  href="/course"
-                  className="text-slate-300 text-sm hover:text-slate-200 underline-offset-2 hover:underline transition-colors"
-                >
-                  View pricing
-                </Link>
-              </div>
             </div>
-            <p className="mt-2 text-xs text-slate-400">No credit card to start</p>
           </div>
           {totalQuestions > 0 && (
             <div className="relative bg-slate-900/55 border-t border-slate-300/15 grid grid-cols-3">
@@ -106,6 +90,24 @@ export default async function HomePage() {
             </div>
           )}
         </section>
+      )}
+
+      {/* Practice exam banner — below hero, logged-out only */}
+      {!user && (
+        <div className="px-4 sm:px-20 py-5 border-b border-slate-100">
+          <div className="flex items-center justify-between bg-sky-50 border border-sky-100 rounded-2xl px-5 py-4 gap-4">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Not ready to commit?</p>
+              <p className="text-xs text-slate-500 mt-0.5">Try a free 10-question practice exam — no account needed.</p>
+            </div>
+            <Link
+              href="/exam/demo"
+              className="flex-shrink-0 px-4 py-2 bg-sky-600 text-white rounded-lg text-sm font-semibold hover:bg-sky-700 transition-colors whitespace-nowrap"
+            >
+              Try free exam →
+            </Link>
+          </div>
+        </div>
       )}
 
       {/* Inner content — constrained width with padding */}
@@ -149,8 +151,7 @@ export default async function HomePage() {
 
         {/* Section header */}
         {chapters.length > 0 && (
-          <div className={`flex items-baseline justify-between ${!user ? "mt-10" : ""} mb-3`}>
-            <h2 className="text-sm font-semibold text-slate-900">Choose a topic</h2>
+          <div className={`flex items-baseline justify-end ${!user ? "mt-10" : ""} mb-3`}>
             <span className="text-xs text-slate-400">{chapters.length} chapters</span>
           </div>
         )}

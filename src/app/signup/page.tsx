@@ -2,6 +2,7 @@
 export const dynamic = "force-dynamic";
 import { useState } from "react";
 import { createBrowserClient } from "@supabase/ssr";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
@@ -12,6 +13,7 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -22,7 +24,7 @@ export default function SignupPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { emailRedirectTo: `${location.origin}/auth/callback` },
@@ -30,6 +32,10 @@ export default function SignupPage() {
     if (error) {
       setError(error.message);
       setLoading(false);
+    } else if (data.session) {
+      // Email verification is disabled — user is logged in immediately
+      router.push("/");
+      router.refresh();
     } else {
       setDone(true);
     }

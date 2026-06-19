@@ -7,6 +7,20 @@ export type Question = Database["public"]["Tables"]["questions"]["Row"];
 export type QuestionContent = Database["public"]["Tables"]["question_content"]["Row"];
 export type AnswerOption = Database["public"]["Tables"]["answer_options"]["Row"];
 
+export async function getProfile(userId: string): Promise<{
+  display_name?: string | null;
+  avatar_color?: string | null;
+} | null> {
+  const supabase = await createClient();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data } = await (supabase as any)
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
+  return data ?? null;
+}
+
 export async function getChapters(): Promise<Chapter[]> {
   const supabase = await createClient();
   const { data, error } = await supabase

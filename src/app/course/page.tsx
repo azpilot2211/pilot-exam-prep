@@ -26,7 +26,7 @@ export default async function CoursePage() {
   return (
     <main className="max-w-4xl mx-auto px-4 py-10">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Pass your FAA written exam</h1>
+        <h1 className="text-3xl font-bold text-slate-900">Plans &amp; Pricing</h1>
         <p className="text-slate-500 mt-2 text-sm">
           One-time purchase. Lifetime access. No subscription.
         </p>
@@ -34,7 +34,10 @@ export default async function CoursePage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Free */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col relative">
+          <span className="absolute -top-2.5 left-5 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+            FREE
+          </span>
           <h2 className="font-bold text-slate-900">Free</h2>
           <p className="text-2xl font-bold text-slate-900 mt-1">$0</p>
           <p className="text-xs text-slate-400 mt-1 mb-4">Try before you buy</p>

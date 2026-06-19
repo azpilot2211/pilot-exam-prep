@@ -2,6 +2,25 @@
 
 import { createClient } from "./supabase/server";
 
+export async function updateProfile(
+  displayName: string,
+  avatarColor: string
+): Promise<{ error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any).from("profiles").upsert({
+    id: user.id,
+    display_name: displayName.trim() || null,
+    avatar_color: avatarColor,
+  });
+  if (error) console.error("updateProfile failed:", error.message);
+  return error ? { error: error.message } : {};
+}
+
 export async function recordAttempt(
   questionId: string,
   selectedLabel: string,

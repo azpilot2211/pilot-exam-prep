@@ -6,9 +6,20 @@ import { getTier, hasAccess } from "@/lib/entitlement";
 import { getFocusAreas } from "@/lib/focusAreas";
 import { masteryPercent } from "@/lib/scoring";
 import { chapterMeta } from "@/lib/chapterMeta";
+import { getProfile } from "@/lib/queries";
 import { ReadinessRing } from "@/components/ReadinessRing";
 import { SignOutButton } from "@/components/SignOutButton";
+import { AccountProfileEditor } from "@/components/AccountProfileEditor";
 import Link from "next/link";
+
+const AVATAR_BG: Record<string, string> = {
+  sky: "bg-sky-500",
+  emerald: "bg-emerald-500",
+  violet: "bg-violet-500",
+  amber: "bg-amber-500",
+  rose: "bg-rose-500",
+  slate: "bg-slate-600",
+};
 
 export default async function AccountPage() {
   const supabase = await createClient();
@@ -17,10 +28,11 @@ export default async function AccountPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/account");
 
-  const [chapters, masteryMap, tier] = await Promise.all([
+  const [chapters, masteryMap, tier, profile] = await Promise.all([
     getChapters(),
     getUserAllMastery(user.id),
     getTier(),
+    getProfile(user.id),
   ]);
 
   let totalCorrect = 0;
@@ -32,7 +44,10 @@ export default async function AccountPage() {
   const overall = totalAnswered > 0 ? masteryPercent(totalCorrect, totalAnswered) : 0;
 
   const focus = getFocusAreas(masteryMap, chapters, 3);
-  const initials = (user.email ?? "?").slice(0, 2).toUpperCase();
+  const displayName = (profile as { display_name?: string | null } | null)?.display_name ?? null;
+  const avatarColor = (profile as { avatar_color?: string | null } | null)?.avatar_color ?? "sky";
+  const avatarBg = AVATAR_BG[avatarColor] ?? "bg-sky-500";
+  const initials = (displayName ?? user.email ?? "?").slice(0, 2).toUpperCase();
   const memberSince = user.created_at
     ? new Date(user.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" })
     : null;
@@ -44,7 +59,7 @@ export default async function AccountPage() {
         {/* Header */}
         <div className="bg-[var(--hero-bg)] px-5 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="flex-shrink-0 w-11 h-11 rounded-full bg-[var(--hero-elevated)] text-sky-300 flex items-center justify-center font-semibold text-sm">
+            <div className={`flex-shrink-0 w-11 h-11 rounded-full ${avatarBg} text-white flex items-center justify-center font-semibold text-sm`}>
               {initials}
             </div>
             <div className="min-w-0">
@@ -112,6 +127,13 @@ export default async function AccountPage() {
             );
           })}
         </div>
+
+        {/* Profile editor */}
+        <AccountProfileEditor
+          initialDisplayName={displayName ?? ""}
+          initialAvatarColor={avatarColor}
+          email={user.email ?? ""}
+        />
 
         {/* Actions */}
         <div className="px-5 py-4 border-t border-slate-100 flex items-center gap-3">
