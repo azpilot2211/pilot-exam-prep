@@ -47,7 +47,8 @@ export default async function DashboardPage() {
       getPublishedQuestionCounts(),
     ]);
 
-  const overallPct = computeOverallPct(masteryMap);
+  const totalPublished = [...questionCounts.values()].reduce((a, b) => a + b, 0);
+  const overallPct = computeOverallPct(masteryMap, totalPublished);
   const focusAreas = getFocusAreas(masteryMap, chapters, 3);
   const questionsAnswered = [...masteryMap.values()].reduce((sum, v) => sum + v.total, 0);
   const chaptersStrong = chapters.filter((c) => {

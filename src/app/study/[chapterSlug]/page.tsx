@@ -27,25 +27,25 @@ export default async function StudyGuidePage({ params }: Props) {
   const isPro = hasAccess(tier, "pro");
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 pb-28">
+    <div className="p-6 max-w-3xl mx-auto pb-28">
       <Link
         href="/"
-        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 transition-colors mb-6"
       >
         ← Back to chapters
       </Link>
       <div className="mb-8">
-        <p className="text-xs font-semibold text-sky-600 uppercase tracking-wide mb-1">
+        <p className="text-xs font-semibold text-sky-500 uppercase tracking-wide mb-1">
           Study Guide
         </p>
-        <h1 className="text-2xl font-bold text-slate-900">{chapter.title}</h1>
+        <h1 className="text-2xl font-bold text-white">{chapter.title}</h1>
         {chapter.description && (
-          <p className="text-slate-500 mt-2 text-sm leading-relaxed">
+          <p className="text-slate-400 mt-2 text-sm leading-relaxed">
             {chapter.description}
           </p>
         )}
         {lessons.length > 0 && (
-          <p className="text-xs text-slate-400 mt-3">
+          <p className="text-xs text-slate-500 mt-3">
             {lessons.length} lesson{lessons.length !== 1 ? "s" : ""} in this chapter
           </p>
         )}
@@ -53,7 +53,7 @@ export default async function StudyGuidePage({ params }: Props) {
 
       {lessons.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-500 text-sm">
             No lessons published in this chapter yet.
           </p>
         </div>
@@ -75,7 +75,7 @@ export default async function StudyGuidePage({ params }: Props) {
       )}
 
       {lessons.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur border-t border-slate-200 px-4 py-4 flex justify-center">
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur border-t border-slate-800 px-4 py-4 flex justify-center md:left-60">
           <Link
             href={`/quiz/${chapterSlug}`}
             className="w-full max-w-sm text-center py-3 bg-sky-600 text-white rounded-xl font-semibold hover:bg-sky-700 transition-colors"
@@ -84,6 +84,6 @@ export default async function StudyGuidePage({ params }: Props) {
           </Link>
         </div>
       )}
-    </main>
+    </div>
   );
 }

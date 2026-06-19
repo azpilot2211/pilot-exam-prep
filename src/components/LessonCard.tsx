@@ -32,9 +32,9 @@ export function LessonCard({
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-4">
+    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 flex flex-col gap-4">
       <div className="flex items-center gap-3">
-        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center">
+        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold flex items-center justify-center">
           {index + 1}
         </span>
         {audioUrl ? (
@@ -42,23 +42,23 @@ export function LessonCard({
             <AudioPlayer src={audioUrl} />
           </div>
         ) : (
-          <span className="text-xs text-slate-400">No audio yet</span>
+          <span className="text-xs text-slate-500">No audio yet</span>
         )}
       </div>
 
       {illustrationSvg && (
         <div
-          className="w-full overflow-hidden rounded-xl border border-slate-100 bg-slate-50 flex items-center justify-center p-2"
+          className="w-full overflow-hidden rounded-xl border border-slate-700 bg-slate-900 flex items-center justify-center p-2"
           dangerouslySetInnerHTML={{ __html: illustrationSvg }}
         />
       )}
 
-      <p className="text-sm text-slate-700 leading-relaxed">{explanation}</p>
+      <p className="text-sm text-slate-300 leading-relaxed">{explanation}</p>
 
       <div className="flex items-center justify-between">
         <Link
           href={`/study/${chapterSlug}/${questionId}`}
-          className="text-xs font-semibold text-sky-600 hover:text-sky-800 transition-colors"
+          className="text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors"
         >
           See related question →
         </Link>
@@ -67,7 +67,7 @@ export function LessonCard({
           isPro ? (
             <button
               onClick={handleDownload}
-              className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-800 hover:underline cursor-pointer transition-colors"
+              className="flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-slate-200 hover:underline cursor-pointer transition-colors"
               title="Download MP3"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@ export function LessonCard({
           ) : (
             <Link
               href="/course"
-              className="flex items-center gap-1 text-xs text-slate-400 hover:text-sky-600 transition-colors"
+              className="flex items-center gap-1 text-xs text-slate-500 hover:text-sky-400 transition-colors"
               title="Pro feature"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

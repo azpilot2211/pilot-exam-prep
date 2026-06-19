@@ -19,13 +19,15 @@ export function examReadiness(chapters: ChapterScore[]): number {
 }
 
 export function computeOverallPct(
-  map: Map<string, { correct: number; total: number }>
+  map: Map<string, { correct: number; total: number }>,
+  totalPublished?: number
 ): number {
   let correct = 0;
-  let total = 0;
+  let answered = 0;
   for (const v of map.values()) {
     correct += v.correct;
-    total += v.total;
+    answered += v.total;
   }
-  return total === 0 ? 0 : Math.round((correct / total) * 100);
+  const denominator = totalPublished ?? answered;
+  return denominator === 0 ? 0 : Math.round((correct / denominator) * 100);
 }
