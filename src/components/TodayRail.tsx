@@ -42,6 +42,11 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
             <div
               className="h-1.5 rounded-full bg-sky-500 transition-all"
               style={{ width: `${overallPct}%` }}
+              role="progressbar"
+              aria-valuenow={overallPct}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Exam readiness"
             />
           </div>
           <span className="text-xs text-slate-400">{overallPct}%</span>
@@ -99,6 +104,7 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
                 className={`w-full h-1.5 rounded-full ${
                   active ? "bg-sky-500" : "bg-slate-700"
                 }`}
+                title={`${letter}: ${active ? "studied" : "no activity"}`}
               />
               <span className="text-[9px] text-slate-600">{letter}</span>
             </div>
