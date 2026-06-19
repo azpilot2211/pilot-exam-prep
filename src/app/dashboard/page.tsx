@@ -102,7 +102,7 @@ export default async function DashboardPage() {
         {/* Action Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Next Action */}
-          <div className="bg-slate-800 rounded-xl p-5 border border-slate-700">
+          <div className="bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-sky-500 shadow-md shadow-black/30">
             <BookOpen size={20} className="text-sky-400 mb-3" />
             <div className="text-slate-200 font-semibold text-sm mb-1">Next Action</div>
             <div className="text-slate-400 text-xs mb-4 line-clamp-2">
@@ -134,13 +134,13 @@ export default async function DashboardPage() {
               compact
             />
           ) : (
-            <div className="bg-slate-800 rounded-xl p-5 border border-slate-700">
+            <div className="bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-amber-500 shadow-md shadow-black/30">
               <div className="text-slate-400 text-xs">No challenge today</div>
             </div>
           )}
 
           {/* Practice Exam */}
-          <div className="bg-slate-800 rounded-xl p-5 border border-slate-700">
+          <div className="bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-violet-500 shadow-md shadow-black/30">
             <ClipboardList size={20} className="text-sky-400 mb-3" />
             <div className="text-slate-200 font-semibold text-sm mb-1">Practice Exam</div>
             <div className="text-slate-400 text-xs mb-4">
@@ -175,7 +175,7 @@ export default async function DashboardPage() {
               return (
                 <div
                   key={chapter.id}
-                  className="bg-slate-800 rounded-xl p-4 border border-slate-700"
+                  className="bg-slate-900 rounded-xl p-4 border border-slate-800"
                 >
                   {/* Title + status badge */}
                   <div className="flex items-start justify-between gap-2 mb-2">
