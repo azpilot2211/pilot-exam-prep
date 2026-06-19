@@ -114,6 +114,17 @@ export function NavDrawer({ isLoggedIn, chapters, userInfo }: Props) {
                 <p className={`truncate ${userInfo.displayName ? "text-xs text-slate-400" : "text-sm font-medium text-slate-900"}`}>
                   {userInfo.email}
                 </p>
+                {isLoggedIn && (
+                  <button
+                    onClick={handleSignOut}
+                    className="text-sm text-slate-500 hover:text-slate-700 transition-colors mt-0.5"
+                  >
+                    Sign out
+                  </button>
+                )}
+              </div>
+            </div>
+          )}    
               </div>
             </div>
           )}
@@ -170,9 +181,6 @@ export function NavDrawer({ isLoggedIn, chapters, userInfo }: Props) {
                 <Link href="/progress" onClick={close} className="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm text-slate-700">
                   Progress
                 </Link>
-                <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-sm text-slate-500">
-                  Log out
-                </button>
               </>
             ) : (
               <>
