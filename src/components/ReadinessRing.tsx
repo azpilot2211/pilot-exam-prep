@@ -2,9 +2,10 @@ interface Props {
   percent: number;
   size?: number;
   stroke?: number;
+  textColor?: string;
 }
 
-export function ReadinessRing({ percent, size = 74, stroke = 8 }: Props) {
+export function ReadinessRing({ percent, size = 74, stroke = 8, textColor = "#0F172A" }: Props) {
   const clamped = Math.min(100, Math.max(0, Math.round(percent)));
   const r = (size - stroke) / 2;
   const circumference = 2 * Math.PI * r;
@@ -40,7 +41,7 @@ export function ReadinessRing({ percent, size = 74, stroke = 8 }: Props) {
         textAnchor="middle"
         fontSize={size * 0.24}
         fontWeight="600"
-        fill="#0F172A"
+        fill={textColor}
       >
         {clamped}%
       </text>
