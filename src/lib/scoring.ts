@@ -17,3 +17,15 @@ export function examReadiness(chapters: ChapterScore[]): number {
   );
   return Math.round(sum / attempted.length);
 }
+
+export function computeOverallPct(
+  map: Map<string, { correct: number; total: number }>
+): number {
+  let correct = 0;
+  let total = 0;
+  for (const v of map.values()) {
+    correct += v.correct;
+    total += v.total;
+  }
+  return total === 0 ? 0 : Math.round((correct / total) * 100);
+}

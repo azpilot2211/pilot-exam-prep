@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { masteryPercent, examReadiness } from "./scoring";
+import { masteryPercent, examReadiness, computeOverallPct } from "./scoring";
 
 describe("masteryPercent", () => {
   it("returns 0 when no questions attempted", () => {
@@ -27,5 +27,26 @@ describe("examReadiness", () => {
 
   it("returns 0 when nothing attempted anywhere", () => {
     expect(examReadiness([{ correct: 0, total: 0 }])).toBe(0);
+  });
+});
+
+describe("computeOverallPct", () => {
+  it("returns 0 for an empty map", () => {
+    expect(computeOverallPct(new Map())).toBe(0);
+  });
+
+  it("aggregates correct and total across all chapters", () => {
+    const map = new Map<string, { correct: number; total: number }>([
+      ["c1", { correct: 7, total: 10 }],
+      ["c2", { correct: 3, total: 10 }],
+    ]);
+    expect(computeOverallPct(map)).toBe(50);
+  });
+
+  it("rounds to nearest integer", () => {
+    const map = new Map<string, { correct: number; total: number }>([
+      ["c1", { correct: 1, total: 3 }],
+    ]);
+    expect(computeOverallPct(map)).toBe(33);
   });
 });
