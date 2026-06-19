@@ -125,6 +125,18 @@ export async function getPublishedLessons(chapterId: string): Promise<Lesson[]> 
     .filter((l): l is Lesson => l !== null);
 }
 
+/** Every published lesson's audio URL, in course order (chapter display_order → lesson order). */
+export async function getCourseAudioUrls(): Promise<string[]> {
+  const chapters = await getChapters();
+  const perChapter = await Promise.all(
+    chapters.map((c) => getPublishedLessons(c.id))
+  );
+  return perChapter
+    .flat()
+    .map((l) => l.audioUrl)
+    .filter((u): u is string => !!u);
+}
+
 export async function getPublishedQuestionCounts(): Promise<Map<string, number>> {
   const supabase = await createClient();
   const { data: published } = await supabase

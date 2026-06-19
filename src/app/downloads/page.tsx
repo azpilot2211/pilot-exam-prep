@@ -35,6 +35,25 @@ export default async function DownloadsPage() {
         {allItems.length > 0 && <DownloadAllButton items={allItems} />}
       </div>
 
+      {/* Full-course single-file download */}
+      {allItems.length > 0 && (
+        <div className="bg-gradient-to-br from-sky-600 to-sky-700 text-white rounded-2xl p-5 mb-6 flex items-center justify-between gap-4">
+          <div className="min-w-0">
+            <p className="font-semibold">Full course — one MP3</p>
+            <p className="text-sky-100 text-sm mt-0.5">
+              Every lesson stitched into a single file. Great for the car or a long flight.
+            </p>
+          </div>
+          <a
+            href="/api/download/full"
+            download="flying-ace-full-course.mp3"
+            className="flex-shrink-0 bg-white text-sky-700 rounded-lg px-5 py-2.5 text-sm font-bold hover:bg-sky-50 transition-colors whitespace-nowrap"
+          >
+            Download full course
+          </a>
+        </div>
+      )}
+
       <div className="flex flex-col gap-4">
         {perChapter.map(({ chapter, lessons }) => {
           const items = lessons.filter((l) => l.audioUrl);
