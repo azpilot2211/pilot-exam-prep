@@ -73,7 +73,7 @@ export default async function CoursePage() {
           </span>
           <h2 className="font-bold text-slate-900">Pro</h2>
           <p className="text-2xl font-bold text-slate-900 mt-1">$59</p>
-          <p className="text-xs text-slate-400 mt-1 mb-4">Everything + pass guarantee</p>
+          <p className="text-xs text-slate-400 mt-1 mb-4">Everything + pass guarantee + full course audio download</p>
           {tier === "pro" ? (
             <span className="text-xs text-slate-400 mt-auto text-center py-2">Current plan</span>
           ) : (
