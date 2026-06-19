@@ -1005,7 +1005,9 @@ git commit -m "feat: add TodayRail right-rail component"
 **Files:**
 - Create: `src/app/dashboard/page.tsx`
 
-Fetches all data in parallel. Center column: readiness hero, action cards (Next Action / Daily Challenge / Practice Exam), chapter training grid. Right rail: `TodayRail` (desktop only, `hidden lg:block`).
+**Design principle:** Pilots are trained to absorb instrument-panel-level information density. Display everything at once in scannable chunks — status labels, question counts, readiness stats — so users never have to dig for relevant data. The right rail is always visible (stacks below on mobile, side-by-side on large screens).
+
+Fetches all data in parallel. Center: readiness hero (4 stats), action cards, chapter training grid (with status labels + question counts). Right rail: always visible.
 
 - [ ] **Step 1: Create `src/app/dashboard/page.tsx`**
 
@@ -1021,6 +1023,7 @@ import {
   getDailyQuestion,
   getStudyStreak,
   getRecentActivityDays,
+  getPublishedQuestionCounts,
 } from "@/lib/queries";
 import { getTier, hasAccess } from "@/lib/entitlement";
 import { getFocusAreas } from "@/lib/focusAreas";
@@ -1029,6 +1032,16 @@ import { ReadinessRing } from "@/components/ReadinessRing";
 import { DailyChallenge } from "@/components/DailyChallenge";
 import { TodayRail } from "@/components/TodayRail";
 
+function chapterStatus(
+  pct: number,
+  started: boolean
+): { label: string; cls: string } {
+  if (!started) return { label: "Not Started", cls: "text-slate-500 bg-slate-700/50" };
+  if (pct >= 70) return { label: "Strong", cls: "text-emerald-400 bg-emerald-500/10" };
+  if (pct >= 40) return { label: "Developing", cls: "text-amber-400 bg-amber-500/10" };
+  return { label: "Needs Focus", cls: "text-rose-400 bg-rose-500/10" };
+}
+
 export default async function DashboardPage() {
   const supabase = await createClient();
   const {
@@ -1036,7 +1049,7 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [masteryMap, chapters, lastExam, dailyQ, tier, streak, recentDays] =
+  const [masteryMap, chapters, lastExam, dailyQ, tier, streak, recentDays, questionCounts] =
     await Promise.all([
       getUserAllMastery(user.id),
       getChapters(),
@@ -1045,18 +1058,20 @@ export default async function DashboardPage() {
       getTier(),
       getStudyStreak(user.id),
       getRecentActivityDays(user.id, 7),
+      getPublishedQuestionCounts(),
     ]);
 
   const overallPct = computeOverallPct(masteryMap);
   const focusAreas = getFocusAreas(masteryMap, chapters, 3);
-  const questionsAnswered = [...masteryMap.values()].reduce(
-    (sum, v) => sum + v.total,
-    0
-  );
+  const questionsAnswered = [...masteryMap.values()].reduce((sum, v) => sum + v.total, 0);
+  const chaptersStrong = chapters.filter((c) => {
+    const m = masteryMap.get(c.id);
+    return m && m.total > 0 && Math.round((m.correct / m.total) * 100) >= 70;
+  }).length;
   const nextChapter = focusAreas[0]?.chapter;
 
   return (
-    <div className="flex gap-6 p-6 min-h-full">
+    <div className="flex flex-col lg:flex-row gap-6 p-6 min-h-full">
       {/* ── Center column ── */}
       <div className="flex-1 min-w-0 space-y-6">
 
@@ -1088,6 +1103,12 @@ export default async function DashboardPage() {
               <div className="text-slate-500 text-xs mb-0.5">Questions answered</div>
               <div className="text-slate-200 font-medium">{questionsAnswered}</div>
             </div>
+            <div>
+              <div className="text-slate-500 text-xs mb-0.5">Chapters strong</div>
+              <div className="text-slate-200 font-medium">
+                {chaptersStrong}/{chapters.length}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1110,10 +1131,7 @@ export default async function DashboardPage() {
                 Study now →
               </Link>
             ) : (
-              <Link
-                href="/"
-                className="text-xs font-semibold text-sky-400 hover:text-sky-300"
-              >
+              <Link href="/" className="text-xs font-semibold text-sky-400 hover:text-sky-300">
                 View chapters →
               </Link>
             )}
@@ -1142,10 +1160,7 @@ export default async function DashboardPage() {
               60-question FAA-style exam with readiness score
             </div>
             {hasAccess(tier, "pro") ? (
-              <Link
-                href="/exam"
-                className="text-xs font-semibold text-sky-400 hover:text-sky-300"
-              >
+              <Link href="/exam" className="text-xs font-semibold text-sky-400 hover:text-sky-300">
                 Start exam →
               </Link>
             ) : (
@@ -1160,24 +1175,34 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Training Plan */}
+        {/* Training Plan — instrument-panel density */}
         <div>
           <h2 className="text-slate-200 font-semibold mb-3">Training Plan</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
             {chapters.map((chapter) => {
               const m = masteryMap.get(chapter.id) ?? { correct: 0, total: 0 };
-              const pct =
-                m.total > 0 ? Math.round((m.correct / m.total) * 100) : 0;
+              const pct = m.total > 0 ? Math.round((m.correct / m.total) * 100) : 0;
+              const totalQ = questionCounts.get(chapter.id) ?? 0;
+              const status = chapterStatus(pct, m.total > 0);
               const canQuiz = hasAccess(tier, "basic");
               return (
                 <div
                   key={chapter.id}
                   className="bg-slate-800 rounded-xl p-4 border border-slate-700"
                 >
-                  <div className="text-slate-200 text-sm font-medium mb-2 line-clamp-1">
-                    {chapter.title}
+                  {/* Title + status badge */}
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="text-slate-200 text-sm font-medium line-clamp-1 flex-1">
+                      {chapter.title}
+                    </div>
+                    <span
+                      className={`text-[10px] font-semibold px-1.5 py-0.5 rounded flex-shrink-0 ${status.cls}`}
+                    >
+                      {status.label}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2 mb-3">
+                  {/* Mastery bar */}
+                  <div className="flex items-center gap-2 mb-1">
                     <div className="flex-1 h-1.5 rounded-full bg-slate-700">
                       <div
                         className="h-1.5 rounded-full bg-sky-500 transition-all"
@@ -1186,6 +1211,11 @@ export default async function DashboardPage() {
                     </div>
                     <span className="text-xs text-slate-400">{pct}%</span>
                   </div>
+                  {/* Question count */}
+                  <div className="text-xs text-slate-600 mb-3">
+                    {m.total}/{totalQ} questions answered
+                  </div>
+                  {/* Actions */}
                   <div className="flex gap-4 text-xs font-medium">
                     <Link
                       href={`/study/${chapter.slug}`}
@@ -1214,8 +1244,8 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* ── Right rail (desktop only, ≥ lg) ── */}
-      <div className="hidden lg:block w-72 flex-shrink-0">
+      {/* ── Right rail — always visible, stacks below on mobile ── */}
+      <div className="w-full lg:w-72 lg:flex-shrink-0">
         <TodayRail
           overallPct={overallPct}
           focusAreas={focusAreas}
