@@ -2,7 +2,9 @@ export const dynamic = "force-dynamic";
 import { getChapters, getPublishedLessons } from "@/lib/queries";
 import { getTier, hasAccess } from "@/lib/entitlement";
 import { redirect } from "next/navigation";
+import { Download } from "lucide-react";
 import { DownloadAllButton } from "@/components/DownloadAllButton";
+import { AudioLessonPlayer } from "@/components/AudioLessonPlayer";
 
 export default async function DownloadsPage() {
   const tier = await getTier();
@@ -25,21 +27,26 @@ export default async function DownloadsPage() {
       }))
   );
 
+  const totalLessons = allItems.length;
+
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-6 max-w-3xl mx-auto">
+      {/* Page header */}
+      <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Course downloads</h1>
-          <p className="text-slate-400 text-sm mt-1">{allItems.length} audio lessons</p>
+          <h1 className="text-2xl font-bold text-white">Audio Course</h1>
+          <p className="text-slate-400 text-sm mt-1">
+            {totalLessons} lessons · Private Pilot
+          </p>
         </div>
         {allItems.length > 0 && <DownloadAllButton items={allItems} />}
       </div>
 
-      {/* Full-course single-file download */}
+      {/* Full-course download card */}
       {allItems.length > 0 && (
-        <div className="bg-gradient-to-br from-sky-600 to-sky-700 text-white rounded-2xl p-5 mb-6 flex items-center justify-between gap-4">
+        <div className="bg-gradient-to-br from-sky-600 to-sky-700 rounded-2xl p-5 mb-8 flex items-center justify-between gap-4">
           <div className="min-w-0">
-            <p className="font-semibold">Full course — one MP3</p>
+            <p className="font-semibold text-white">Full course — one MP3</p>
             <p className="text-sky-100 text-sm mt-0.5">
               Every lesson stitched into a single file. Great for the car or a long flight.
             </p>
@@ -47,39 +54,46 @@ export default async function DownloadsPage() {
           <a
             href="/api/download/full"
             download="flying-ace-full-course.mp3"
-            className="flex-shrink-0 bg-white text-sky-700 rounded-lg px-5 py-2.5 text-sm font-bold hover:bg-sky-50 transition-colors whitespace-nowrap"
+            className="flex-shrink-0 flex items-center gap-2 bg-white text-sky-700 rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-sky-50 transition-colors whitespace-nowrap"
           >
-            Download full course
+            <Download size={14} />
+            Download all
           </a>
         </div>
       )}
 
-      <div className="flex flex-col gap-4">
+      {/* Chapter sections */}
+      <div className="space-y-8">
         {perChapter.map(({ chapter, lessons }) => {
           const items = lessons.filter((l) => l.audioUrl);
           if (items.length === 0) return null;
+
           return (
-            <div key={chapter.id} className="bg-white border border-slate-200 rounded-2xl p-4">
-              <p className="text-sm font-semibold text-slate-900 mb-2">{chapter.title}</p>
-              <div className="flex flex-col gap-1">
-                {items.map((l, i) => {
+            <section key={chapter.id}>
+              <div className="flex items-center gap-3 mb-3">
+                <h2 className="text-slate-200 font-semibold">{chapter.title}</h2>
+                <span className="text-xs text-slate-500">{items.length} lessons</span>
+              </div>
+              <div className="space-y-2">
+                {items.map((lesson, i) => {
                   const filename = `${chapter.slug}-lesson-${i + 1}.mp3`;
-                  const href = `/api/download?url=${encodeURIComponent(l.audioUrl as string)}&filename=${encodeURIComponent(filename)}`;
+                  const downloadHref = `/api/download?url=${encodeURIComponent(lesson.audioUrl as string)}&filename=${encodeURIComponent(filename)}`;
                   return (
-                    <a
-                      key={l.questionId}
-                      href={href}
-                      className="text-xs text-sky-600 hover:underline"
-                    >
-                      Lesson {i + 1}.mp3
-                    </a>
+                    <AudioLessonPlayer
+                      key={lesson.questionId}
+                      lessonNumber={i + 1}
+                      stem={lesson.stem}
+                      audioUrl={lesson.audioUrl as string}
+                      downloadHref={downloadHref}
+                      filename={filename}
+                    />
                   );
                 })}
               </div>
-            </div>
+            </section>
           );
         })}
       </div>
-    </main>
+    </div>
   );
 }

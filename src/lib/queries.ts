@@ -91,6 +91,7 @@ export async function getQuestion(questionId: string): Promise<{
 
 export type Lesson = {
   questionId: string;
+  stem: string;
   explanation: string;
   illustrationSvg: string | null;
   audioUrl: string | null;
@@ -117,6 +118,7 @@ export async function getPublishedLessons(chapterId: string): Promise<Lesson[]> 
       if (!content) return null;
       return {
         questionId: q.id,
+        stem: q.stem,
         explanation: content.explanation ?? "",
         illustrationSvg: content.illustration_svg ?? null,
         audioUrl: content.audio_url ?? null,
