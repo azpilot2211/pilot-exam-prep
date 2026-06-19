@@ -29,10 +29,10 @@ export default async function StudyGuidePage({ params }: Props) {
   return (
     <div className="p-6 max-w-3xl mx-auto pb-28">
       <Link
-        href="/"
+        href="/dashboard"
         className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 transition-colors mb-6"
       >
-        ← Back to chapters
+        ← Back to dashboard
       </Link>
       <div className="mb-8">
         <p className="text-xs font-semibold text-sky-500 uppercase tracking-wide mb-1">

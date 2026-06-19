@@ -12,7 +12,7 @@ import {
 
 const TABS = [
   { label: "Home", icon: LayoutDashboard, href: "/dashboard" },
-  { label: "Study", icon: BookOpen, href: "/" },
+  { label: "Study", icon: BookOpen, href: "/dashboard" },
   { label: "Exam", icon: ClipboardList, href: "/exam" },
   { label: "Audio", icon: Headphones, href: "/downloads" },
   { label: "Account", icon: User, href: "/account" },

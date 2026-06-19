@@ -21,8 +21,8 @@ const NAV_ITEMS = [
   {
     label: "Study Plan",
     icon: BookOpen,
-    href: "/",
-    match: (p: string) => p === "/" || p.startsWith("/study") || p.startsWith("/quiz"),
+    href: "/dashboard",
+    match: (p: string) => p.startsWith("/study") || p.startsWith("/quiz"),
   },
   {
     label: "Practice Exam",
