@@ -22,7 +22,7 @@ export function BottomTabBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 md:hidden bg-slate-900 border-t border-slate-800 z-50">
+    <nav aria-label="Mobile navigation" className="fixed bottom-0 inset-x-0 md:hidden bg-slate-900 border-t border-slate-800 z-50">
       <div className="flex">
         {TABS.map(({ label, icon: Icon, href }) => {
           const active =
@@ -32,6 +32,7 @@ export function BottomTabBar() {
             <Link
               key={href}
               href={href}
+              aria-current={active ? "page" : undefined}
               className={`flex-1 flex flex-col items-center py-2 gap-0.5 text-[10px] font-medium transition-colors ${
                 active ? "text-sky-400" : "text-slate-500"
               }`}

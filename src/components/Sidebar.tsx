@@ -73,7 +73,7 @@ export function Sidebar({ overallPct, displayName, userEmail, avatarColor }: Pro
   const avatarBg = AVATAR_COLORS[avatarColor] ?? "bg-sky-500";
 
   return (
-    <nav className="hidden md:flex flex-col w-60 h-full bg-slate-900 border-r border-slate-800 flex-shrink-0">
+    <nav aria-label="Main navigation" className="hidden md:flex flex-col w-60 h-full bg-slate-900 border-r border-slate-800 flex-shrink-0">
       {/* Logo */}
       <div className="px-5 py-5">
         <span className="text-white font-bold text-lg tracking-tight">✈️ Flight Deck</span>
@@ -87,6 +87,7 @@ export function Sidebar({ overallPct, displayName, userEmail, avatarColor }: Pro
             <li key={href}>
               <Link
                 href={href}
+                aria-current={active ? "page" : undefined}
                 className={`flex items-center gap-3 rounded-lg text-sm font-medium transition-colors ${
                   active
                     ? "bg-sky-500/10 text-sky-400 border-l-2 border-sky-400 px-3 py-2.5 pl-[10px]"
