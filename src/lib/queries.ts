@@ -285,3 +285,61 @@ export async function getLastExamResult(userId: string): Promise<ExamResultRow |
     .maybeSingle();
   return (data as ExamResultRow | null) ?? null;
 }
+
+/**
+ * Counts consecutive days (including today) with at least one attempt,
+ * going backward from today. Returns 0 if no attempts today or yesterday.
+ */
+export async function getStudyStreak(userId: string): Promise<number> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("attempts")
+    .select("answered_at")
+    .eq("user_id", userId)
+    .order("answered_at", { ascending: false });
+
+  if (!data || data.length === 0) return 0;
+
+  const days = new Set(
+    data.map((a) => new Date(a.answered_at).toISOString().split("T")[0])
+  );
+
+  let streak = 0;
+  const cursor = new Date();
+  cursor.setHours(0, 0, 0, 0);
+
+  for (let i = 0; i < 365; i++) {
+    const key = cursor.toISOString().split("T")[0];
+    if (days.has(key)) {
+      streak++;
+      cursor.setDate(cursor.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
+/**
+ * Returns the set of ISO date strings (YYYY-MM-DD) in the past `n` days
+ * (including today) that had at least one attempt.
+ */
+export async function getRecentActivityDays(
+  userId: string,
+  n: number
+): Promise<Set<string>> {
+  const supabase = await createClient();
+  const since = new Date();
+  since.setDate(since.getDate() - n + 1);
+  since.setHours(0, 0, 0, 0);
+
+  const { data } = await supabase
+    .from("attempts")
+    .select("answered_at")
+    .eq("user_id", userId)
+    .gte("answered_at", since.toISOString());
+
+  return new Set(
+    (data ?? []).map((a) => new Date(a.answered_at).toISOString().split("T")[0])
+  );
+}
