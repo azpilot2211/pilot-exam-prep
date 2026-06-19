@@ -76,7 +76,8 @@ export function Sidebar({ overallPct, displayName, userEmail, avatarColor }: Pro
     <nav aria-label="Main navigation" className="hidden md:flex flex-col w-60 h-full bg-slate-900 border-r border-slate-800 flex-shrink-0">
       {/* Logo */}
       <div className="px-5 py-5">
-        <span className="text-white font-bold text-lg tracking-tight">✈️ Flight Deck</span>
+        <div className="text-white font-bold text-lg tracking-tight">✈️ Flying Ace</div>
+        <div className="text-slate-500 text-xs tracking-wide">exam prep</div>
       </div>
 
       {/* Nav items */}
