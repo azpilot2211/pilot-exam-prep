@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { Download } from "lucide-react";
 import { DownloadAllButton } from "@/components/DownloadAllButton";
 import { AudioLessonPlayer } from "@/components/AudioLessonPlayer";
+import { ChapterAccordion } from "@/components/ChapterAccordion";
 
 export default async function DownloadsPage() {
   const tier = await getTier();
@@ -63,34 +64,33 @@ export default async function DownloadsPage() {
       )}
 
       {/* Chapter sections */}
-      <div className="space-y-8">
-        {perChapter.map(({ chapter, lessons }) => {
+      <div className="divide-y divide-slate-800">
+        {perChapter.map(({ chapter, lessons }, chapterIndex) => {
           const items = lessons.filter((l) => l.audioUrl);
           if (items.length === 0) return null;
 
           return (
-            <section key={chapter.id}>
-              <div className="flex items-center gap-3 mb-3">
-                <h2 className="text-slate-200 font-semibold">{chapter.title}</h2>
-                <span className="text-xs text-slate-500">{items.length} lessons</span>
-              </div>
-              <div className="space-y-2">
-                {items.map((lesson, i) => {
-                  const filename = `${chapter.slug}-lesson-${i + 1}.mp3`;
-                  const downloadHref = `/api/download?url=${encodeURIComponent(lesson.audioUrl as string)}&filename=${encodeURIComponent(filename)}`;
-                  return (
-                    <AudioLessonPlayer
-                      key={lesson.questionId}
-                      lessonNumber={i + 1}
-                      stem={lesson.stem}
-                      audioUrl={lesson.audioUrl as string}
-                      downloadHref={downloadHref}
-                      filename={filename}
-                    />
-                  );
-                })}
-              </div>
-            </section>
+            <ChapterAccordion
+              key={chapter.id}
+              title={chapter.title}
+              lessonCount={items.length}
+              defaultOpen={chapterIndex === 0}
+            >
+              {items.map((lesson, i) => {
+                const filename = `${chapter.slug}-lesson-${i + 1}.mp3`;
+                const downloadHref = `/api/download?url=${encodeURIComponent(lesson.audioUrl as string)}&filename=${encodeURIComponent(filename)}`;
+                return (
+                  <AudioLessonPlayer
+                    key={lesson.questionId}
+                    lessonNumber={i + 1}
+                    stem={lesson.stem}
+                    audioUrl={lesson.audioUrl as string}
+                    downloadHref={downloadHref}
+                    filename={filename}
+                  />
+                );
+              })}
+            </ChapterAccordion>
           );
         })}
       </div>

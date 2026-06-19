@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
   BookOpen,
   ClipboardList,
   Headphones,
@@ -11,7 +10,6 @@ import {
 } from "lucide-react";
 
 const TABS = [
-  { label: "Home", icon: LayoutDashboard, href: "/dashboard" },
   { label: "Study", icon: BookOpen, href: "/dashboard" },
   { label: "Exam", icon: ClipboardList, href: "/exam" },
   { label: "Audio", icon: Headphones, href: "/downloads" },
