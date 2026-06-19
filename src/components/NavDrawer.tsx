@@ -119,11 +119,20 @@ export function NavDrawer({ isLoggedIn, chapters, userInfo }: Props) {
           )}
 
           <nav className="flex-1 overflow-y-auto px-2 py-3">
-            {/* Pricing — top of mobile menu */}
+            {/* Top links — visible without scrolling */}
+            {isLoggedIn && (
+              <Link
+                href="/exam"
+                onClick={close}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-sky-50 hover:bg-sky-100 text-sm font-semibold text-sky-700 mb-1"
+              >
+                Practice Exam
+              </Link>
+            )}
             <Link
               href="/course"
               onClick={close}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-sky-50 text-sm font-semibold text-sky-600 mb-1"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-50 text-sm font-semibold text-sky-600 mb-1"
             >
               Pricing
             </Link>
@@ -160,9 +169,6 @@ export function NavDrawer({ isLoggedIn, chapters, userInfo }: Props) {
                 </Link>
                 <Link href="/progress" onClick={close} className="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm text-slate-700">
                   Progress
-                </Link>
-                <Link href="/exam" onClick={close} className="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm text-slate-700">
-                  Practice Exam
                 </Link>
                 <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-sm text-slate-500">
                   Log out

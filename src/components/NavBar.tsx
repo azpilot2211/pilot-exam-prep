@@ -27,6 +27,14 @@ export async function NavBar() {
           <Logo size={40} showWordmark wordmarkClassName="text-[17.5px]" />
         </Link>
         <div className="flex items-center gap-3">
+          {user && (
+            <Link
+              href="/exam"
+              className="hidden sm:block px-4 py-2 bg-sky-600 text-white rounded-lg text-sm font-semibold hover:bg-sky-700 transition-colors"
+            >
+              Practice Exam
+            </Link>
+          )}
           <Link
             href="/course"
             className="hidden sm:block text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors"
