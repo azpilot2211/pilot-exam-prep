@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { getChapters, getUserAllMastery, getPublishedQuestionCounts, getDailyQuestion } from "@/lib/queries";
+import { getChapters, getUserAllMastery, getPublishedQuestionCounts, getDailyQuestion, getFreeChapterSlugs } from "@/lib/queries";
 import { ChapterCard } from "@/components/ChapterCard";
 import { ReadinessRing } from "@/components/ReadinessRing";
 import { DailyChallenge } from "@/components/DailyChallenge";
@@ -12,14 +12,16 @@ export default async function HomePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [chapters, questionCounts, masteryMap, dailyQuestion] = await Promise.all([
+  const [chapters, questionCounts, masteryMap, dailyQuestion, freeChapterSlugs] = await Promise.all([
     getChapters(),
     getPublishedQuestionCounts(),
     user
       ? getUserAllMastery(user.id)
       : Promise.resolve(new Map<string, { correct: number; total: number }>()),
     getDailyQuestion(),
+    getFreeChapterSlugs(),
   ]);
+  const freeSlugSet = new Set(freeChapterSlugs);
 
   let totalCorrect = 0;
   let totalAnswered = 0;
@@ -184,6 +186,7 @@ export default async function HomePage() {
               description={chapter.description}
               mastery={masteryMap.get(chapter.id) ?? null}
               questionCount={questionCounts.get(chapter.id) ?? 0}
+              isFree={freeSlugSet.has(chapter.slug)}
             />
           ))}
         </div>

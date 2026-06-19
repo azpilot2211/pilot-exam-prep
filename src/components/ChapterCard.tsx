@@ -9,16 +9,22 @@ interface Props {
   description: string | null;
   mastery: { correct: number; total: number } | null;
   questionCount: number;
+  isFree?: boolean;
 }
 
-export function ChapterCard({ slug, title, description, mastery, questionCount }: Props) {
+export function ChapterCard({ slug, title, description, mastery, questionCount, isFree }: Props) {
   const hasStarted = mastery != null && mastery.total > 0;
   const percent = hasStarted ? masteryPercent(mastery!.correct, mastery!.total) : 0;
   const meta = chapterMeta(slug);
   const Icon = meta.icon;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow flex flex-col relative">
+      {isFree && (
+        <span className="absolute top-4 right-[-22px] w-28 bg-emerald-500 text-white text-[9px] font-bold text-center py-1 rotate-45 z-10 shadow-sm tracking-wide">
+          FREE
+        </span>
+      )}
       <div className={`h-1 ${meta.accent}`} />
       <div className="p-5 flex flex-col flex-1">
         <div className="flex items-start justify-between gap-2 mb-3">
