@@ -19,7 +19,7 @@ export function SignOutButton({ onSignOut }: { onSignOut?: () => void }) {
   return (
     <button
       onClick={handleSignOut}
-      className="text-md font-semibold text-slate-500 underline hover:text-slate-700 transition-colors"
+      className="text-md font-semibold text-slate-500 underline hover:text-slate-700 hover:cursor-pointer transition-colors"
     >
       Sign out
     </button>
