@@ -40,6 +40,7 @@ export async function upsertQuestion(
         stem: question.stem,
         acs_code: question.acsCode,
         figure_ref: question.figureRef ?? null,
+        figure_image_url: question.figureRef ? `/figures/${question.figureRef}.svg` : null,
         source_ref: question.sourceRef,
         content_version: version,
       },

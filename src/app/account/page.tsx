@@ -1,10 +1,10 @@
 export const dynamic = "force-dynamic";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { getChapters, getUserAllMastery } from "@/lib/queries";
+import { getChapters, getUserAllMastery, getPublishedQuestionCounts } from "@/lib/queries";
 import { getTier, hasAccess } from "@/lib/entitlement";
 import { getFocusAreas } from "@/lib/focusAreas";
-import { masteryPercent } from "@/lib/scoring";
+import { readinessPercent, summarizeMastery } from "@/lib/scoring";
 import { chapterMeta } from "@/lib/chapterMeta";
 import { getProfile } from "@/lib/queries";
 import { ReadinessRing } from "@/components/ReadinessRing";
@@ -28,20 +28,17 @@ export default async function AccountPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/account");
 
-  const [chapters, masteryMap, tier, profile] = await Promise.all([
+  const [chapters, masteryMap, tier, profile, questionCounts] = await Promise.all([
     getChapters(),
     getUserAllMastery(user.id),
     getTier(),
     getProfile(user.id),
+    getPublishedQuestionCounts(),
   ]);
 
-  let totalCorrect = 0;
-  let totalAnswered = 0;
-  for (const { correct, total } of masteryMap.values()) {
-    totalCorrect += correct;
-    totalAnswered += total;
-  }
-  const overall = totalAnswered > 0 ? masteryPercent(totalCorrect, totalAnswered) : 0;
+  const totalPublished = [...questionCounts.values()].reduce((a, b) => a + b, 0);
+  const { correct: totalCorrect, answered: totalAnswered } = summarizeMastery(masteryMap);
+  const overall = readinessPercent(totalCorrect, totalPublished);
 
   const focus = getFocusAreas(masteryMap, chapters, 3);
   const displayName = (profile as { display_name?: string | null } | null)?.display_name ?? null;

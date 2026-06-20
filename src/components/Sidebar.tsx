@@ -71,14 +71,14 @@ export function Sidebar({ overallPct, displayName, userEmail, avatarColor }: Pro
       {/* Logo */}
       <div className="px-5 py-5">
         <div className="text-white font-bold text-lg tracking-tight">✈️ Flying Ace</div>
-        <div className="text-slate-500 text-xs tracking-wide">exam prep</div>
+        <div className="text-slate-400 text-xs tracking-wide">exam prep</div>
       </div>
 
       {/* Nav items */}
       <ul className="flex-1 px-3 space-y-0.5 overflow-y-auto">
         {/* Flight Deck — static label, not a link */}
         <li>
-          <div className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-500 cursor-default select-none">
+          <div className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-400 cursor-default select-none">
             <LayoutDashboard size={16} className="flex-shrink-0" />
             Flight Deck
           </div>
@@ -114,7 +114,7 @@ export function Sidebar({ overallPct, displayName, userEmail, avatarColor }: Pro
           </div>
           <span className="text-slate-300 text-xs truncate">{label}</span>
         </div>
-        <div className="text-xs text-slate-500 mb-0.5">Current course</div>
+        <div className="text-xs text-slate-400 mb-0.5">Current course</div>
         <div className="text-sm text-slate-300 font-medium mb-2">Private Pilot</div>
         <div className="flex items-center gap-2">
           <div className="flex-1 h-1.5 rounded-full bg-slate-700">
@@ -123,7 +123,7 @@ export function Sidebar({ overallPct, displayName, userEmail, avatarColor }: Pro
               style={{ width: `${overallPct}%` }}
             />
           </div>
-          <span className="text-xs text-slate-400 flex-shrink-0">{overallPct}%</span>
+          <span className="text-xs text-slate-300 flex-shrink-0">{overallPct}%</span>
         </div>
       </div>
     </nav>

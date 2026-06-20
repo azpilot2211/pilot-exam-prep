@@ -83,7 +83,7 @@ export function AudioLessonPlayer({ lessonNumber, stem, audioUrl, downloadHref, 
 
         <div className="flex-1 min-w-0">
           {/* Lesson number + title */}
-          <div className="text-[10px] text-slate-500 font-medium mb-0.5">
+          <div className="text-[10px] text-slate-400 font-medium mb-0.5">
             Lesson {lessonNumber}
           </div>
           <div className="text-sm text-slate-200 leading-snug line-clamp-2 mb-2">
@@ -108,13 +108,13 @@ export function AudioLessonPlayer({ lessonNumber, stem, audioUrl, downloadHref, 
 
           {/* Time + download */}
           <div className="flex items-center justify-between">
-            <span className="text-[10px] text-slate-500 tabular-nums">
+            <span className="text-[10px] text-slate-400 tabular-nums">
               {fmt(currentTime)}{duration > 0 ? ` / ${fmt(duration)}` : ""}
             </span>
             <a
               href={downloadHref}
               download={filename}
-              className="flex items-center gap-1 text-[10px] text-slate-400 hover:text-sky-400 transition-colors"
+              className="flex items-center gap-1 text-[10px] text-slate-300 hover:text-sky-400 transition-colors"
             >
               <Download size={11} />
               Download

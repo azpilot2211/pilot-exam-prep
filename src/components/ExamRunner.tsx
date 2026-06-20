@@ -57,7 +57,7 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60">
           <div className="bg-white rounded-2xl p-6 mx-4 max-w-sm w-full text-center space-y-4 shadow-xl">
             <p className="text-base font-semibold text-slate-900">Submit exam?</p>
-            <p className="text-slate-500 text-sm">
+            <p className="text-slate-600 text-sm">
               {unanswered} question{unanswered !== 1 ? "s" : ""} unanswered. This cannot be
               undone.
             </p>
@@ -81,7 +81,7 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
 
       {/* Header */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-slate-500">
+        <span className="text-sm text-slate-600">
           Question {index + 1} of {items.length}
         </span>
         <div className="flex items-center gap-4">
@@ -123,6 +123,17 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
         })}
       </div>
 
+      {/* Figure (if present) */}
+      {current.figureUrl && (
+        <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <img
+            src={current.figureUrl}
+            alt="FAA exam figure"
+            className="w-full h-auto"
+          />
+        </div>
+      )}
+
       {/* Question stem */}
       <p className="text-base font-medium text-slate-900 leading-relaxed">{current.stem}</p>
 
@@ -151,7 +162,7 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
           className={`text-xs font-medium px-3 py-2 rounded-lg border transition-colors ${
             isFlagged
               ? "border-amber-400 text-amber-600 bg-amber-50"
-              : "border-slate-200 text-slate-500 hover:border-slate-300"
+              : "border-slate-200 text-slate-600 hover:border-slate-300"
           }`}
         >
           {isFlagged ? "⚑ Flagged" : "⚐ Flag"}

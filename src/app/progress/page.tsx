@@ -1,8 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { getChapters, getUserAllMastery } from "@/lib/queries";
+import { getChapters, getUserAllMastery, getPublishedQuestionCounts } from "@/lib/queries";
 import { MasteryBar } from "@/components/MasteryBar";
-import { masteryPercent } from "@/lib/scoring";
+import { masteryPercent, readinessPercent, coveragePercent, summarizeMastery } from "@/lib/scoring";
 import Link from "next/link";
 
 export default async function ProgressPage() {
@@ -13,10 +13,12 @@ export default async function ProgressPage() {
 
   if (!user) redirect("/login?next=/progress");
 
-  const [chapters, masteryMap] = await Promise.all([
+  const [chapters, masteryMap, questionCounts] = await Promise.all([
     getChapters(),
     getUserAllMastery(user.id),
+    getPublishedQuestionCounts(),
   ]);
+  const totalPublished = [...questionCounts.values()].reduce((a, b) => a + b, 0);
 
   const rows = chapters.map((chapter) => {
     const m = masteryMap.get(chapter.id) ?? { correct: 0, total: 0 };
@@ -33,21 +35,37 @@ export default async function ProgressPage() {
     .filter((r) => r.started && r.percent < 70)
     .sort((a, b) => a.percent - b.percent);
 
-  const totalCorrect = rows.reduce((s, r) => s + r.correct, 0);
-  const totalAnswered = rows.reduce((s, r) => s + r.total, 0);
-  const overall = totalAnswered > 0 ? masteryPercent(totalCorrect, totalAnswered) : 0;
+  const { correct: totalCorrect, answered: totalAnswered } = summarizeMastery(masteryMap);
+  const readiness = readinessPercent(totalCorrect, totalPublished);
+  const coverage = coveragePercent(totalAnswered, totalPublished);
+  const accuracy = masteryPercent(totalCorrect, totalAnswered);
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-8 space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Progress</h1>
-        <p className="text-slate-400 text-sm mt-1">
-          Overall readiness:{" "}
-          <span className="font-semibold text-slate-700">{overall}%</span>
-          {totalAnswered > 0 && (
-            <> · {totalCorrect} of {totalAnswered} correct</>
-          )}
+        <p className="text-slate-600 text-sm mt-1">
+          {totalAnswered > 0
+            ? `${totalCorrect} of ${totalAnswered} answered correctly`
+            : "You haven't answered any questions yet."}
         </p>
+        <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="bg-white border border-slate-200 rounded-xl p-3 text-center">
+            <div className="text-2xl font-bold text-slate-900">{readiness}%</div>
+            <div className="text-xs font-semibold text-slate-700 mt-0.5">Readiness</div>
+            <div className="text-[10px] text-slate-500 mt-0.5">correct of all published</div>
+          </div>
+          <div className="bg-white border border-slate-200 rounded-xl p-3 text-center">
+            <div className="text-2xl font-bold text-slate-900">{coverage}%</div>
+            <div className="text-xs font-semibold text-slate-700 mt-0.5">Coverage</div>
+            <div className="text-[10px] text-slate-500 mt-0.5">answered of all published</div>
+          </div>
+          <div className="bg-white border border-slate-200 rounded-xl p-3 text-center">
+            <div className="text-2xl font-bold text-slate-900">{accuracy}%</div>
+            <div className="text-xs font-semibold text-slate-700 mt-0.5">Accuracy</div>
+            <div className="text-[10px] text-slate-500 mt-0.5">correct of answered</div>
+          </div>
+        </div>
       </div>
 
       {weakAreas.length > 0 && (
@@ -77,7 +95,7 @@ export default async function ProgressPage() {
                 {row.title}
               </Link>
               {!row.started && (
-                <span className="text-xs text-slate-400">Not started</span>
+                <span className="text-xs text-slate-500">Not started</span>
               )}
             </div>
             {row.started && (

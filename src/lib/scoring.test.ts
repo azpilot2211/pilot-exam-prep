@@ -1,7 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { masteryPercent, examReadiness, computeOverallPct } from "./scoring";
+import {
+  masteryPercent,
+  summarizeMastery,
+  coveragePercent,
+  readinessPercent,
+} from "./scoring";
 
-describe("masteryPercent", () => {
+describe("masteryPercent (accuracy)", () => {
   it("returns 0 when no questions attempted", () => {
     expect(masteryPercent(0, 0)).toBe(0);
   });
@@ -15,38 +20,41 @@ describe("masteryPercent", () => {
   });
 });
 
-describe("examReadiness", () => {
-  it("averages chapter mastery, ignoring untouched chapters", () => {
-    const result = examReadiness([
-      { correct: 8, total: 10 },
-      { correct: 6, total: 10 },
-      { correct: 0, total: 0 },
+describe("summarizeMastery", () => {
+  it("sums correct and answered across chapters", () => {
+    const map = new Map<string, { correct: number; total: number }>([
+      ["c1", { correct: 7, total: 10 }],
+      ["c2", { correct: 3, total: 8 }],
     ]);
-    expect(result).toBe(70);
+    expect(summarizeMastery(map)).toEqual({ correct: 10, answered: 18 });
   });
 
-  it("returns 0 when nothing attempted anywhere", () => {
-    expect(examReadiness([{ correct: 0, total: 0 }])).toBe(0);
+  it("returns zeros for an empty map", () => {
+    expect(summarizeMastery(new Map())).toEqual({ correct: 0, answered: 0 });
   });
 });
 
-describe("computeOverallPct", () => {
-  it("returns 0 for an empty map", () => {
-    expect(computeOverallPct(new Map())).toBe(0);
+describe("coveragePercent", () => {
+  it("is answered over published", () => {
+    expect(coveragePercent(50, 200)).toBe(25);
   });
 
-  it("aggregates correct and total across all chapters", () => {
-    const map = new Map<string, { correct: number; total: number }>([
-      ["c1", { correct: 7, total: 10 }],
-      ["c2", { correct: 3, total: 10 }],
-    ]);
-    expect(computeOverallPct(map)).toBe(50);
+  it("returns 0 when nothing is published", () => {
+    expect(coveragePercent(10, 0)).toBe(0);
+  });
+});
+
+describe("readinessPercent", () => {
+  it("is correct over ALL published, not just answered", () => {
+    // High accuracy on a few answered still yields low readiness across the full bank.
+    expect(readinessPercent(8, 200)).toBe(4);
   });
 
-  it("rounds to nearest integer", () => {
-    const map = new Map<string, { correct: number; total: number }>([
-      ["c1", { correct: 1, total: 3 }],
-    ]);
-    expect(computeOverallPct(map)).toBe(33);
+  it("returns 0 when nothing is published", () => {
+    expect(readinessPercent(5, 0)).toBe(0);
+  });
+
+  it("caps at 100", () => {
+    expect(readinessPercent(200, 200)).toBe(100);
   });
 });

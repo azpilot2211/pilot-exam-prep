@@ -1,0 +1,89 @@
+<svg viewBox="0 0 440 460" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="440" height="460" fill="#f8f9fa"/>
+  <text x="220" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">VOR COURSE DEVIATION INDICATOR (CDI)</text>
+  <text x="220" y="38" text-anchor="middle" font-size="10" fill="#475569">Figure 6 · OBS-selected course shown in window · Needle deflection = course error</text>
+
+  <!-- Instrument centered at 220, 230 -->
+  <g transform="translate(220, 235)">
+    <!-- Outer bezel -->
+    <circle cx="0" cy="0" r="155" fill="#111827"/>
+    <circle cx="0" cy="0" r="148" fill="#1e2936"/>
+    <!-- Face -->
+    <circle cx="0" cy="0" r="140" fill="#0d1117"/>
+
+    <!-- OBS course window at top -->
+    <rect x="-36" y="-148" width="72" height="28" fill="#f8f9fa" stroke="#64748b" stroke-width="1.5" rx="3"/>
+    <text x="0" y="-128" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b" font-family="monospace">045</text>
+    <text x="0" y="-153" text-anchor="middle" font-size="8" fill="#94a3b8">COURSE</text>
+
+    <!-- Index triangle pointing up (at top, course index) -->
+    <polygon points="0,-108 -8,-88 8,-88" fill="white"/>
+    <!-- Index triangle at bottom -->
+    <polygon points="0,108 -8,88 8,88" fill="white"/>
+
+    <!-- Deviation dot track (horizontal guides) -->
+    <!-- 5 dots on each side, spacing 20px, full scale at ±100px -->
+    <!-- Left dots: x = -20, -40, -60, -80, -100 -->
+    <circle cx="-20" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="-40" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="-60" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="-80" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="-100" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <!-- Right dots -->
+    <circle cx="20" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="40" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="60" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="80" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+    <circle cx="100" cy="0" r="5" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+
+    <!-- Center horizontal reference line -->
+    <line x1="-110" y1="0" x2="110" y2="0" stroke="#374151" stroke-width="1"/>
+
+    <!-- CDI NEEDLE — deflected 2 dots to the RIGHT (x=+40) -->
+    <rect x="33" y="-82" width="14" height="164" fill="#eab308" rx="2"/>
+
+    <!-- TO/FROM indicator window -->
+    <rect x="50" y="-22" width="60" height="44" fill="#1f2937" stroke="#4b5563" stroke-width="1" rx="3"/>
+    <!-- TO flag showing (green arrow pointing up, with TO below) -->
+    <rect x="52" y="-20" width="56" height="40" fill="#15803d" rx="2"/>
+    <polygon points="80,-15 72,-2 88,-2" fill="white"/>
+    <text x="80" y="16" text-anchor="middle" font-size="13" font-weight="bold" fill="white">TO</text>
+
+    <!-- Course card compass markings around the outside -->
+    <!-- Just a few cardinal directions for context -->
+    <text x="0" y="-120" text-anchor="middle" font-size="9" fill="#94a3b8">N</text>
+    <text x="116" y="4" text-anchor="middle" font-size="9" fill="#94a3b8">E</text>
+    <text x="0" y="128" text-anchor="middle" font-size="9" fill="#94a3b8">S</text>
+    <text x="-116" y="4" text-anchor="middle" font-size="9" fill="#94a3b8">W</text>
+
+    <!-- "45°" label on index -->
+    <text x="0" y="-70" text-anchor="middle" font-size="9" fill="#94a3b8">45°</text>
+    <text x="0" y="78" text-anchor="middle" font-size="9" fill="#94a3b8">225°</text>
+
+    <!-- Center pivot dot -->
+    <circle cx="0" cy="0" r="5" fill="#374151" stroke="#6b7280" stroke-width="1"/>
+
+    <!-- OBS knob at bottom -->
+    <circle cx="0" cy="130" r="12" fill="#374151" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="0" y="134" text-anchor="middle" font-size="8" fill="#9ca3af">OBS</text>
+
+    <!-- Dot count labels -->
+    <text x="-100" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">5</text>
+    <text x="-80" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">4</text>
+    <text x="-60" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">3</text>
+    <text x="-40" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">2</text>
+    <text x="-20" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">1</text>
+    <text x="20" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">1</text>
+    <text x="40" y="-15" text-anchor="middle" font-size="7" fill="#ffcc00" font-weight="bold">2</text>
+    <text x="60" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">3</text>
+    <text x="80" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">4</text>
+    <text x="100" y="-15" text-anchor="middle" font-size="7" fill="#6b7280">5</text>
+  </g>
+
+  <!-- Interpretation box -->
+  <rect x="30" y="390" width="380" height="60" fill="#fef3c7" stroke="#fbbf24" stroke-width="1" rx="4"/>
+  <text x="45" y="408" font-size="10" font-weight="bold" fill="#92400e">READING THIS INDICATOR:</text>
+  <text x="45" y="424" font-size="9.5" fill="#334155">• OBS set to 045° — this is the selected inbound course</text>
+  <text x="45" y="440" font-size="9.5" fill="#334155">• CDI 2 dots RIGHT — aircraft is LEFT of the 045° course</text>
+  <text x="45" y="456" font-size="9.5" fill="#334155">• TO flag — flying toward the VOR; turn RIGHT to intercept course</text>
+</svg>

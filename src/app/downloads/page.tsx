@@ -65,7 +65,7 @@ export default async function DownloadsPage() {
 
       {/* Chapter sections */}
       <div className="divide-y divide-slate-800">
-        {perChapter.map(({ chapter, lessons }, chapterIndex) => {
+        {perChapter.map(({ chapter, lessons }) => {
           const items = lessons.filter((l) => l.audioUrl);
           if (items.length === 0) return null;
 
@@ -74,7 +74,7 @@ export default async function DownloadsPage() {
               key={chapter.id}
               title={chapter.title}
               lessonCount={items.length}
-              defaultOpen={chapterIndex === 0}
+              defaultOpen={false}
             >
               {items.map((lesson, i) => {
                 const filename = `${chapter.slug}-lesson-${i + 1}.mp3`;

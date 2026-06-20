@@ -65,14 +65,14 @@ export function QuizView({ chapterSlug, chapterTitle, items }: Props) {
       <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
         <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center space-y-2">
           <p className="text-5xl font-bold text-slate-900">{percent}%</p>
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-600 text-sm">
             {correct} of {total} correct — {chapterTitle}
           </p>
         </div>
 
         {wrong.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
               Review these ({wrong.length})
             </p>
             {wrong.map((a) => {
@@ -111,7 +111,7 @@ export function QuizView({ chapterSlug, chapterTitle, items }: Props) {
   return (
     <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between text-sm text-slate-500">
+      <div className="flex items-center justify-between text-sm text-slate-600">
         <span>{chapterTitle} Quiz</span>
         <span>
           {index + 1} / {items.length}
@@ -125,6 +125,17 @@ export function QuizView({ chapterSlug, chapterTitle, items }: Props) {
           style={{ width: `${((index + (revealed ? 1 : 0)) / items.length) * 100}%` }}
         />
       </div>
+
+      {/* Figure (if present) */}
+      {current.question.figure_image_url && (
+        <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <img
+            src={current.question.figure_image_url}
+            alt="FAA exam figure"
+            className="w-full h-auto"
+          />
+        </div>
+      )}
 
       {/* Question */}
       <p className="text-lg font-medium text-slate-900 leading-relaxed">

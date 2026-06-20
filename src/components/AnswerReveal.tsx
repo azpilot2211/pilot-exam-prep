@@ -48,7 +48,7 @@ export function AnswerReveal({ selectedLabel, options, content }: Props) {
       {/* Why correct */}
       {content.explanation && (
         <div>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">
+          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
             Why it's correct
           </p>
           <p className="text-sm text-slate-700 leading-relaxed">{content.explanation}</p>
@@ -57,7 +57,7 @@ export function AnswerReveal({ selectedLabel, options, content }: Props) {
 
       {/* Why each option */}
       <div>
-        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">
+        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-3">
           Why each answer
         </p>
         <div className="space-y-2">
@@ -97,8 +97,8 @@ export function AnswerReveal({ selectedLabel, options, content }: Props) {
 
       {/* Citation */}
       {content.source_citation && (
-        <p className="text-xs text-slate-400 border-t border-slate-100 pt-4">
-          <span className="font-semibold text-slate-500">Reference: </span>
+        <p className="text-xs text-slate-500 border-t border-slate-100 pt-4">
+          <span className="font-semibold text-slate-600">Reference: </span>
           {content.source_citation}
         </p>
       )}

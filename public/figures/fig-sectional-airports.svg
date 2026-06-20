@@ -1,0 +1,127 @@
+<svg viewBox="0 0 640 500" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="640" height="500" fill="#e8edd8"/>
+
+  <!-- Title strip -->
+  <rect x="0" y="0" width="640" height="34" fill="#1e293b" opacity="0.9"/>
+  <text x="320" y="14" text-anchor="middle" font-size="12" font-weight="bold" fill="white">SECTIONAL AERONAUTICAL CHART EXCERPT</text>
+  <text x="320" y="28" text-anchor="middle" font-size="9" fill="#94a3b8">Figure 7 · Not to scale · For training purposes only</text>
+
+  <!-- Terrain colors (low elevation = light green/tan) -->
+  <rect x="0" y="34" width="640" height="466" fill="#e4e8cc"/>
+
+  <!-- Slightly higher terrain in upper right -->
+  <ellipse cx="520" cy="100" rx="120" ry="80" fill="#d4d9b0" opacity="0.7"/>
+  <ellipse cx="560" cy="90" rx="70" ry="50" fill="#c8cfaa" opacity="0.6"/>
+
+  <!-- River/water feature -->
+  <path d="M 30 280 Q 120 250 180 270 Q 250 300 310 280 Q 380 250 440 260 Q 500 270 580 240" stroke="#a8d8ea" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M 30 286 Q 120 256 180 276 Q 250 306 310 286 Q 380 256 440 266 Q 500 276 580 246" stroke="#89c4d9" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <text x="350" y="265" font-size="8" fill="#4a90a4" font-style="italic" transform="rotate(-3 350 265)">Maple River</text>
+
+  <!-- Interstate highway (double line) -->
+  <path d="M 60 390 Q 200 370 300 360 Q 400 355 580 365" stroke="#fef3c7" stroke-width="9" fill="none"/>
+  <path d="M 60 390 Q 200 370 300 360 Q 400 355 580 365" stroke="#d4a853" stroke-width="6" fill="none"/>
+  <path d="M 60 390 Q 200 370 300 360 Q 400 355 580 365" stroke="#fef3c7" stroke-width="3" fill="none" stroke-dasharray="12,8"/>
+  <text x="430" y="352" font-size="8" fill="#6b5b35" font-weight="bold">I-25</text>
+
+  <!-- State road -->
+  <path d="M 380 40 Q 370 180 375 280 Q 380 360 370 460" stroke="#f0d070" stroke-width="5" fill="none"/>
+  <path d="M 380 40 Q 370 180 375 280 Q 380 360 370 460" stroke="#e8c040" stroke-width="3" fill="none"/>
+  <text x="390" y="248" font-size="8" fill="#7a6a20" font-weight="bold">SR 54</text>
+
+  <!-- ====== CONTROLLED AIRPORT (KRVT) — BLUE ====== -->
+  <!-- Class D airspace dashed blue circle -->
+  <!-- Airport at (210, 170), Class D roughly 5nm radius ≈ 70px at this scale -->
+  <circle cx="210" cy="175" r="72" fill="none" stroke="#1e6fa8" stroke-width="2" stroke-dasharray="7,4"/>
+  <!-- Class D ceiling annotation -->
+  <text x="215" y="105" font-size="10" fill="#1e6fa8" font-weight="bold">[D]</text>
+  <text x="215" y="118" font-size="8" fill="#1e6fa8">SFC-1,900 MSL</text>
+
+  <!-- Airport symbol: blue filled circle with runway cross -->
+  <circle cx="210" cy="175" r="14" fill="#1e6fa8"/>
+  <!-- Runway symbol: cross inside circle -->
+  <rect x="205" y="163" width="10" height="24" fill="white" rx="1"/>
+  <rect x="198" y="170" width="24" height="10" fill="white" rx="1"/>
+
+  <!-- Data block: controlled airport -->
+  <rect x="228" y="140" width="170" height="76" fill="#f8f9fa" fill-opacity="0.92" stroke="#1e6fa8" stroke-width="1.2" rx="2"/>
+  <text x="235" y="156" font-size="10" font-weight="bold" fill="#1e293b">★ KRVT</text>
+  <text x="305" y="156" font-size="9" fill="#475569">1,347 MSL</text>
+  <text x="235" y="170" font-size="8.5" fill="#334155">CT—118.5</text>
+  <text x="235" y="182" font-size="8.5" fill="#334155">ATIS 128.35</text>
+  <text x="235" y="194" font-size="8.5" fill="#334155">UNICOM 122.95</text>
+  <text x="235" y="207" font-size="8" fill="#1e6fa8" font-weight="bold">Class D  SFC to 1,900 ft MSL</text>
+
+  <!-- Arrow from data block to airport -->
+  <line x1="228" y1="165" x2="224" y2="172" stroke="#1e6fa8" stroke-width="1.2"/>
+
+  <!-- ====== NON-TOWERED AIRPORT (7RA) — MAGENTA ====== -->
+  <!-- No Class D, but magenta dashed circle = Class E surface area -->
+  <circle cx="490" cy="200" r="55" fill="none" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <!-- Small tick marks on the Class E boundary (every 45°) -->
+  <line x1="490" y1="145" x2="490" y2="135" stroke="#9333ea" stroke-width="1.5"/>
+  <line x1="529" y1="161" x2="535" y2="153" stroke="#9333ea" stroke-width="1.5"/>
+  <line x1="545" y1="200" x2="555" y2="200" stroke="#9333ea" stroke-width="1.5"/>
+  <line x1="529" y1="239" x2="535" y2="247" stroke="#9333ea" stroke-width="1.5"/>
+  <line x1="490" y1="255" x2="490" y2="265" stroke="#9333ea" stroke-width="1.5"/>
+
+  <!-- Airport symbol: magenta open circle with runway -->
+  <circle cx="490" cy="200" r="12" fill="#c084fc" stroke="#9333ea" stroke-width="2"/>
+  <rect x="486" y="190" width="8" height="20" fill="white" rx="1"/>
+  <rect x="480" y="196" width="20" height="8" fill="white" rx="1"/>
+
+  <!-- Data block: non-towered -->
+  <rect x="505" y="150" width="128" height="64" fill="#f8f9fa" fill-opacity="0.92" stroke="#9333ea" stroke-width="1.2" rx="2"/>
+  <text x="512" y="165" font-size="10" font-weight="bold" fill="#1e293b">★ 7RA</text>
+  <text x="560" y="165" font-size="9" fill="#475569">745 MSL</text>
+  <text x="512" y="179" font-size="8.5" fill="#334155">CTAF 122.8</text>
+  <text x="512" y="192" font-size="8.5" fill="#334155">RP 25</text>
+  <text x="512" y="206" font-size="8" fill="#7e22ce">Class E to surface</text>
+
+  <!-- Arrow from data block to airport -->
+  <line x1="505" y1="168" x2="502" y2="195" stroke="#9333ea" stroke-width="1.2"/>
+
+  <!-- ====== VOR STATION ====== -->
+  <!-- Compass rose symbol for VOR at approximately (130, 380) -->
+  <g transform="translate(130, 390)">
+    <!-- Hexagon/compass rose -->
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="5" fill="#1e293b"/>
+    <!-- Tick marks for cardinal directions -->
+    <line x1="0" y1="-22" x2="0" y2="-28" stroke="#1e293b" stroke-width="1.5"/>
+    <line x1="0" y1="22" x2="0" y2="28" stroke="#1e293b" stroke-width="1.5"/>
+    <line x1="-22" y1="0" x2="-28" y2="0" stroke="#1e293b" stroke-width="1.5"/>
+    <line x1="22" y1="0" x2="28" y2="0" stroke="#1e293b" stroke-width="1.5"/>
+    <!-- VOR label -->
+    <text x="0" y="-36" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">RVT</text>
+    <text x="0" y="42" text-anchor="middle" font-size="8" fill="#1e293b">108.8</text>
+    <text x="0" y="52" text-anchor="middle" font-size="7" fill="#4b5563">VOR</text>
+  </g>
+
+  <!-- Victor airway V-105 connecting VOR to area -->
+  <line x1="148" y1="368" x2="195" y2="190" stroke="#1e6fa8" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+  <text x="155" y="290" font-size="8" fill="#1e6fa8" transform="rotate(-75 155 290)">V-105</text>
+
+  <!-- Legend box -->
+  <rect x="30" y="415" width="580" height="78" fill="#f8f9fa" fill-opacity="0.95" stroke="#334155" stroke-width="1" rx="3"/>
+  <text x="45" y="432" font-size="10" font-weight="bold" fill="#1e293b">CHART SYMBOLS:</text>
+
+  <circle cx="48" cy="448" r="8" fill="#1e6fa8"/>
+  <rect x="44" y="443" width="8" height="10" fill="white" rx="0.5"/>
+  <rect x="40" y="446" width="16" height="4" fill="white" rx="0.5"/>
+  <text x="62" y="451" font-size="9" fill="#334155">Airport with Control Tower (Blue)</text>
+
+  <circle cx="48" cy="468" r="8" fill="#c084fc" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="62" y="471" font-size="9" fill="#334155">Airport without Control Tower (Magenta)</text>
+
+  <line x1="200" y1="448" x2="226" y2="448" stroke="#1e6fa8" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="232" y="452" font-size="9" fill="#334155">Class D Airspace (blue dashes)</text>
+
+  <line x1="200" y1="468" x2="226" y2="468" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="232" y="472" font-size="9" fill="#334155">Class E Surface Area (magenta dashes)</text>
+
+  <text x="430" y="448" font-size="9" fill="#334155">★ = airport beacon (rotating light)</text>
+  <text x="430" y="463" font-size="9" fill="#334155">CT = control tower frequency</text>
+  <text x="430" y="478" font-size="9" fill="#334155">RP = right traffic pattern for that runway</text>
+</svg>

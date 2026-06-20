@@ -35,7 +35,7 @@ export function StudyView({
     <main className="min-h-screen bg-slate-50">
       {/* Sub-header */}
       <div className="bg-white border-b border-slate-200 px-4 py-2">
-        <div className="max-w-2xl mx-auto flex items-center justify-between text-sm text-slate-500">
+        <div className="max-w-2xl mx-auto flex items-center justify-between text-sm text-slate-600">
           <Link href={`/study/${chapterSlug}`} className="hover:text-slate-700 transition-colors">
             ← {chapterTitle}
           </Link>
@@ -52,6 +52,7 @@ export function StudyView({
           <QuestionCard
             questionId={question.id}
             stem={question.stem}
+            figureUrl={question.figure_image_url ?? null}
             options={options}
             onReveal={setRevealedLabel}
           />

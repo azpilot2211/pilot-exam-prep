@@ -10,6 +10,7 @@ export interface ExamQuestion {
   stem: string;
   chapterSlug: string;
   chapterTitle: string;
+  figureUrl?: string | null;
   options: ExamOption[];
 }
 

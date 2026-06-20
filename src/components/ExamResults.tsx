@@ -39,11 +39,11 @@ export function ExamResults({
         >
           {passed ? "PASS" : "FAIL"}
         </span>
-        <p className="text-slate-500 text-sm">
+        <p className="text-slate-600 text-sm">
           {score} of {total} correct · Pass line: 70%
         </p>
         {isDemo && (
-          <p className="text-xs text-slate-400 pt-1">
+          <p className="text-xs text-slate-500 pt-1">
             This was a 10-question preview. The real exam is 60 questions.
           </p>
         )}
@@ -68,7 +68,7 @@ export function ExamResults({
                       style={{ width: `${pct}%` }}
                     />
                   </div>
-                  <span className="text-xs tabular-nums text-slate-400 w-20 text-right">
+                  <span className="text-xs tabular-nums text-slate-600 w-20 text-right">
                     {correct}/{t} ({pct}%)
                   </span>
                 </div>
@@ -99,7 +99,7 @@ export function ExamResults({
       {/* Missed questions */}
       {missedQuestions.length > 0 && (
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
             Review these ({missedQuestions.length})
           </p>
           {missedQuestions.map((q) => {
@@ -117,13 +117,13 @@ export function ExamResults({
                   </p>
                 )}
                 {!selectedLabel && (
-                  <p className="text-slate-400 text-xs">Not answered</p>
+                  <p className="text-slate-500 text-xs">Not answered</p>
                 )}
                 <p className="text-green-700 text-xs">
                   Correct: {correctOption?.label} — {correctOption?.text}
                 </p>
                 {correctOption?.why && (
-                  <p className="text-slate-500 text-xs italic">{correctOption.why}</p>
+                  <p className="text-slate-600 text-xs italic">{correctOption.why}</p>
                 )}
               </div>
             );

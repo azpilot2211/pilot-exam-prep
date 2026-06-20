@@ -42,7 +42,7 @@ export function LessonCard({
             <AudioPlayer src={audioUrl} />
           </div>
         ) : (
-          <span className="text-xs text-slate-500">No audio yet</span>
+          <span className="text-xs text-slate-400">No audio yet</span>
         )}
       </div>
 
@@ -79,7 +79,7 @@ export function LessonCard({
           ) : (
             <Link
               href="/course"
-              className="flex items-center gap-1 text-xs text-slate-500 hover:text-sky-400 transition-colors"
+              className="flex items-center gap-1 text-xs text-slate-400 hover:text-sky-400 transition-colors"
               title="Pro feature"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

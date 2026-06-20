@@ -27,7 +27,7 @@ export default async function StudyGuidePage({ params }: Props) {
   const isPro = hasAccess(tier, "pro");
 
   return (
-    <div className="p-6 max-w-3xl mx-auto pb-28">
+    <div className="p-6 max-w-3xl mx-auto pb-40 md:pb-28">
       <Link
         href="/dashboard"
         className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 transition-colors mb-6"
@@ -75,7 +75,7 @@ export default async function StudyGuidePage({ params }: Props) {
       )}
 
       {lessons.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur border-t border-slate-800 px-4 py-4 flex justify-center md:left-60">
+        <div className="fixed bottom-14 md:bottom-0 left-0 right-0 z-40 bg-slate-900/90 backdrop-blur border-t border-slate-800 px-4 py-4 flex justify-center md:left-60">
           <Link
             href={`/quiz/${chapterSlug}`}
             className="w-full max-w-sm text-center py-3 bg-sky-600 text-white rounded-xl font-semibold hover:bg-sky-700 transition-colors"

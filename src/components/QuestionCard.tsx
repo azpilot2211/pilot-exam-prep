@@ -6,11 +6,12 @@ import type { AnswerOption } from "@/lib/queries";
 interface Props {
   questionId: string;
   stem: string;
+  figureUrl?: string | null;
   options: AnswerOption[];
   onReveal: (selectedLabel: string) => void;
 }
 
-export function QuestionCard({ questionId, stem, options, onReveal }: Props) {
+export function QuestionCard({ questionId, stem, figureUrl, options, onReveal }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -25,6 +26,15 @@ export function QuestionCard({ questionId, stem, options, onReveal }: Props) {
 
   return (
     <div className="space-y-6">
+      {figureUrl && (
+        <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <img
+            src={figureUrl}
+            alt="FAA exam figure — refer to this diagram to answer the question"
+            className="w-full h-auto"
+          />
+        </div>
+      )}
       <p className="text-lg font-medium text-slate-900 leading-relaxed">{stem}</p>
       <div className="space-y-3">
         {options.map((option) => (

@@ -13,7 +13,7 @@ import {
 } from "@/lib/queries";
 import { getTier, hasAccess } from "@/lib/entitlement";
 import { getFocusAreas } from "@/lib/focusAreas";
-import { computeOverallPct } from "@/lib/scoring";
+import { summarizeMastery, readinessPercent } from "@/lib/scoring";
 import { ReadinessRing } from "@/components/ReadinessRing";
 import { DailyChallenge } from "@/components/DailyChallenge";
 import { TodayRail } from "@/components/TodayRail";
@@ -22,7 +22,7 @@ function chapterStatus(
   pct: number,
   started: boolean
 ): { label: string; cls: string } {
-  if (!started) return { label: "Not Started", cls: "text-slate-500 bg-slate-700/50" };
+  if (!started) return { label: "Not Started", cls: "text-slate-400 bg-slate-700/50" };
   if (pct >= 70) return { label: "Strong", cls: "text-emerald-400 bg-emerald-500/10" };
   if (pct >= 40) return { label: "Developing", cls: "text-amber-400 bg-amber-500/10" };
   return { label: "Needs Focus", cls: "text-rose-400 bg-rose-500/10" };
@@ -48,9 +48,9 @@ export default async function DashboardPage() {
     ]);
 
   const totalPublished = [...questionCounts.values()].reduce((a, b) => a + b, 0);
-  const overallPct = computeOverallPct(masteryMap, totalPublished);
+  const { correct: totalCorrect, answered: questionsAnswered } = summarizeMastery(masteryMap);
+  const overallPct = readinessPercent(totalCorrect, totalPublished);
   const focusAreas = getFocusAreas(masteryMap, chapters, 3);
-  const questionsAnswered = [...masteryMap.values()].reduce((sum, v) => sum + v.total, 0);
   const chaptersStrong = chapters.filter((c) => {
     const m = masteryMap.get(c.id);
     return m && m.total > 0 && Math.round((m.correct / m.total) * 100) >= 70;
@@ -68,12 +68,12 @@ export default async function DashboardPage() {
             <ReadinessRing percent={overallPct} size={96} stroke={10} textColor="#F8FAFC" />
             <div>
               <div className="text-4xl font-bold text-white">{overallPct}%</div>
-              <div className="text-slate-400 text-sm mt-1">Private Pilot · Ready</div>
+              <div className="text-slate-300 text-sm mt-1">Private Pilot · Ready</div>
             </div>
           </div>
           <div className="mt-5 flex flex-wrap gap-6 text-sm">
             <div>
-              <div className="text-slate-500 text-xs mb-0.5">Last exam</div>
+              <div className="text-slate-400 text-xs mb-0.5">Last exam</div>
               <div className="text-slate-200 font-medium">
                 {lastExam
                   ? `${lastExam.score}/${lastExam.total} (${Math.round(
@@ -83,15 +83,15 @@ export default async function DashboardPage() {
               </div>
             </div>
             <div>
-              <div className="text-slate-500 text-xs mb-0.5">FAA minimum</div>
+              <div className="text-slate-400 text-xs mb-0.5">FAA minimum</div>
               <div className="text-slate-200 font-medium">70%</div>
             </div>
             <div>
-              <div className="text-slate-500 text-xs mb-0.5">Questions answered</div>
+              <div className="text-slate-400 text-xs mb-0.5">Questions answered</div>
               <div className="text-slate-200 font-medium">{questionsAnswered}</div>
             </div>
             <div>
-              <div className="text-slate-500 text-xs mb-0.5">Chapters strong</div>
+              <div className="text-slate-400 text-xs mb-0.5">Chapters strong</div>
               <div className="text-slate-200 font-medium">
                 {chaptersStrong}/{chapters.length}
               </div>
@@ -102,26 +102,28 @@ export default async function DashboardPage() {
         {/* Action Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Next Action */}
-          <div className="bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-sky-500 shadow-md shadow-black/30">
+          <div className="flex flex-col bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-sky-500 shadow-md shadow-black/30">
             <BookOpen size={20} className="text-sky-400 mb-3" />
             <div className="text-slate-200 font-semibold text-sm mb-1">Next Action</div>
-            <div className="text-slate-400 text-xs mb-4 line-clamp-2">
+            <div className="text-slate-300 text-xs mb-4 line-clamp-2">
               {nextChapter
                 ? `Study: ${nextChapter.title}`
                 : "All chapters in great shape!"}
             </div>
-            {nextChapter ? (
-              <Link
-                href={`/study/${nextChapter.slug}`}
-                className="text-xs font-semibold text-sky-400 hover:text-sky-300"
-              >
-                Study now →
-              </Link>
-            ) : (
-              <Link href="/" className="text-xs font-semibold text-sky-400 hover:text-sky-300">
-                View chapters →
-              </Link>
-            )}
+            <div className="mt-auto pt-1">
+              {nextChapter ? (
+                <Link
+                  href={`/study/${nextChapter.slug}`}
+                  className="text-xs font-semibold text-sky-400 hover:text-sky-300"
+                >
+                  Study now →
+                </Link>
+              ) : (
+                <Link href="/" className="text-xs font-semibold text-sky-400 hover:text-sky-300">
+                  View chapters →
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Daily Challenge */}
@@ -140,25 +142,27 @@ export default async function DashboardPage() {
           )}
 
           {/* Practice Exam */}
-          <div className="bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-violet-500 shadow-md shadow-black/30">
+          <div className="flex flex-col bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-violet-500 shadow-md shadow-black/30">
             <ClipboardList size={20} className="text-sky-400 mb-3" />
             <div className="text-slate-200 font-semibold text-sm mb-1">Practice Exam</div>
-            <div className="text-slate-400 text-xs mb-4">
+            <div className="text-slate-300 text-xs mb-4">
               60-question FAA-style exam with readiness score
             </div>
-            {hasAccess(tier, "pro") ? (
-              <Link href="/exam" className="text-xs font-semibold text-sky-400 hover:text-sky-300">
-                Start exam →
-              </Link>
-            ) : (
-              <Link
-                href="/course"
-                className="text-xs font-semibold text-slate-400 hover:text-slate-300"
-              >
-                <Lock size={11} className="inline mr-1" />
-                Upgrade to Pro →
-              </Link>
-            )}
+            <div className="mt-auto pt-1">
+              {hasAccess(tier, "pro") ? (
+                <Link href="/exam" className="text-xs font-semibold text-sky-400 hover:text-sky-300">
+                  Start exam →
+                </Link>
+              ) : (
+                <Link
+                  href="/course"
+                  className="text-xs font-semibold text-slate-400 hover:text-slate-300"
+                >
+                  <Lock size={11} className="inline mr-1" />
+                  Upgrade to Pro →
+                </Link>
+              )}
+            </div>
           </div>
         </div>
 
@@ -196,10 +200,10 @@ export default async function DashboardPage() {
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="text-xs text-slate-400">{pct}%</span>
+                    <span className="text-xs text-slate-300">{pct}%</span>
                   </div>
                   {/* Question count */}
-                  <div className="text-xs text-slate-600 mb-3">
+                  <div className="text-xs text-slate-400 mb-3">
                     {m.total}/{totalQ} questions answered
                   </div>
                   {/* Actions */}
@@ -213,12 +217,12 @@ export default async function DashboardPage() {
                     {canQuiz ? (
                       <Link
                         href={`/quiz/${chapter.slug}`}
-                        className="text-slate-400 hover:text-slate-300"
+                        className="text-slate-300 hover:text-slate-100"
                       >
                         Quiz
                       </Link>
                     ) : (
-                      <Link href="/course" className="text-slate-600">
+                      <Link href="/course" className="text-slate-500">
                         <Lock size={10} className="inline mr-0.5" />
                         Quiz
                       </Link>

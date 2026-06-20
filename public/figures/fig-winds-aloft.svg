@@ -1,0 +1,102 @@
+<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="monospace, Arial">
+  <rect width="640" height="420" fill="#f8f9fa"/>
+  <text x="320" y="22" text-anchor="middle" font-size="13" font-weight="bold" font-family="Arial, sans-serif" fill="#1e293b">WINDS AND TEMPERATURES ALOFT FORECAST</text>
+  <text x="320" y="38" text-anchor="middle" font-size="10" font-family="Arial, sans-serif" fill="#475569">Figure 9 · FD WINDS AND TEMPERATURES ALOFT FORECAST · NWS Aviation Weather Center</text>
+
+  <!-- Header block -->
+  <rect x="30" y="50" width="580" height="60" fill="#1e293b" rx="3"/>
+  <text x="44" y="68" font-size="10" fill="#94a3b8">DATA BASED ON 151200Z</text>
+  <text x="44" y="83" font-size="10" fill="white">VALID 151800Z  FOR USE 1500-2100Z.  TEMPS NEG ABV 24000</text>
+  <text x="44" y="98" font-size="10" fill="#94a3b8">FT    3000   6000   9000   12000  18000  24000  30000  34000  39000</text>
+
+  <!-- Table header -->
+  <rect x="30" y="112" width="580" height="24" fill="#334155" rx="0"/>
+  <text x="60" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="Arial">STA</text>
+  <text x="130" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="Arial">3,000</text>
+  <text x="198" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="Arial">6,000</text>
+  <text x="266" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="Arial">9,000</text>
+  <text x="334" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="Arial">12,000</text>
+  <text x="402" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="Arial">18,000</text>
+  <text x="470" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="Arial">24,000</text>
+  <text x="550" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="#94a3b8" font-family="Arial">30,000</text>
+
+  <!-- Column dividers -->
+  <line x1="96" y1="112" x2="96" y2="136" stroke="#64748b" stroke-width="0.5"/>
+  <line x1="164" y1="112" x2="164" y2="136" stroke="#64748b" stroke-width="0.5"/>
+  <line x1="232" y1="112" x2="232" y2="136" stroke="#64748b" stroke-width="0.5"/>
+  <line x1="300" y1="112" x2="300" y2="136" stroke="#64748b" stroke-width="0.5"/>
+  <line x1="368" y1="112" x2="368" y2="136" stroke="#64748b" stroke-width="0.5"/>
+  <line x1="436" y1="112" x2="436" y2="136" stroke="#64748b" stroke-width="0.5"/>
+  <line x1="504" y1="112" x2="504" y2="136" stroke="#64748b" stroke-width="0.5"/>
+
+  <!-- Station rows -->
+  <!-- ABQ -->
+  <rect x="30" y="136" width="580" height="28" fill="#eff6ff"/>
+  <text x="60" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af" font-family="Arial">ABQ</text>
+  <text x="130" y="153" text-anchor="middle" font-size="11" fill="#334155">2714</text>
+  <text x="198" y="153" text-anchor="middle" font-size="11" fill="#334155">3120-08</text>
+  <text x="266" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#dc2626">2925-18</text>
+  <text x="334" y="153" text-anchor="middle" font-size="11" fill="#334155">2930-28</text>
+  <text x="402" y="153" text-anchor="middle" font-size="11" fill="#334155">2845-37</text>
+  <text x="470" y="153" text-anchor="middle" font-size="11" fill="#334155">2760-48</text>
+  <text x="550" y="153" text-anchor="middle" font-size="11" fill="#94a3b8">2870-57</text>
+
+  <!-- DEN -->
+  <rect x="30" y="164" width="580" height="28" fill="white"/>
+  <text x="60" y="181" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155" font-family="Arial">DEN</text>
+  <text x="130" y="181" text-anchor="middle" font-size="11" fill="#334155">1508</text>
+  <text x="198" y="181" text-anchor="middle" font-size="11" fill="#334155">2010-04</text>
+  <text x="266" y="181" text-anchor="middle" font-size="11" fill="#334155">2318-15</text>
+  <text x="334" y="181" text-anchor="middle" font-size="11" fill="#334155">2420-25</text>
+  <text x="402" y="181" text-anchor="middle" font-size="11" fill="#334155">2535-39</text>
+  <text x="470" y="181" text-anchor="middle" font-size="11" fill="#334155">2545-50</text>
+  <text x="550" y="181" text-anchor="middle" font-size="11" fill="#94a3b8">2460-61</text>
+
+  <!-- OKC -->
+  <rect x="30" y="192" width="580" height="28" fill="#eff6ff"/>
+  <text x="60" y="209" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155" font-family="Arial">OKC</text>
+  <text x="130" y="209" text-anchor="middle" font-size="11" fill="#334155">2215</text>
+  <text x="198" y="209" text-anchor="middle" font-size="11" fill="#334155">2218+04</text>
+  <text x="266" y="209" text-anchor="middle" font-size="11" fill="#334155">2320-08</text>
+  <text x="334" y="209" text-anchor="middle" font-size="11" fill="#334155">2325-20</text>
+  <text x="402" y="209" text-anchor="middle" font-size="11" fill="#334155">2340-35</text>
+  <text x="470" y="209" text-anchor="middle" font-size="11" fill="#334155">2455-46</text>
+  <text x="550" y="209" text-anchor="middle" font-size="11" fill="#94a3b8">2565-57</text>
+
+  <!-- PHX -->
+  <rect x="30" y="220" width="580" height="28" fill="white"/>
+  <text x="60" y="237" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155" font-family="Arial">PHX</text>
+  <text x="130" y="237" text-anchor="middle" font-size="11" fill="#334155">2406</text>
+  <text x="198" y="237" text-anchor="middle" font-size="11" fill="#334155">2612+18</text>
+  <text x="266" y="237" text-anchor="middle" font-size="11" fill="#334155">2718+06</text>
+  <text x="334" y="237" text-anchor="middle" font-size="11" fill="#334155">2820-06</text>
+  <text x="402" y="237" text-anchor="middle" font-size="11" fill="#334155">2935-22</text>
+  <text x="470" y="237" text-anchor="middle" font-size="11" fill="#334155">3050-36</text>
+  <text x="550" y="237" text-anchor="middle" font-size="11" fill="#94a3b8">3065-52</text>
+
+  <!-- Outer border for table -->
+  <rect x="30" y="112" width="580" height="136" fill="none" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Column dividers in data rows -->
+  <line x1="96" y1="112" x2="96" y2="248" stroke="#cbd5e1" stroke-width="0.7"/>
+  <line x1="164" y1="112" x2="164" y2="248" stroke="#cbd5e1" stroke-width="0.7"/>
+  <line x1="232" y1="112" x2="232" y2="248" stroke="#cbd5e1" stroke-width="0.7"/>
+  <line x1="300" y1="112" x2="300" y2="248" stroke="#cbd5e1" stroke-width="0.7"/>
+  <line x1="368" y1="112" x2="368" y2="248" stroke="#cbd5e1" stroke-width="0.7"/>
+  <line x1="436" y1="112" x2="436" y2="248" stroke="#cbd5e1" stroke-width="0.7"/>
+  <line x1="504" y1="112" x2="504" y2="248" stroke="#cbd5e1" stroke-width="0.7"/>
+
+  <!-- DECODING KEY -->
+  <rect x="30" y="262" width="580" height="145" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1" rx="4"/>
+  <text x="45" y="280" font-size="11" font-weight="bold" fill="#1e293b" font-family="Arial">HOW TO READ THE CODE:</text>
+
+  <text x="45" y="298" font-size="10" fill="#334155" font-family="Arial">Format: DDSST  where  DD = wind direction (×10°),  SS = wind speed (kts),  T = temperature (°C)</text>
+  <text x="45" y="314" font-size="10" fill="#334155" font-family="Arial">• Temperatures are negative above 24,000 ft (no sign shown above FL240)</text>
+  <text x="45" y="330" font-size="10" fill="#334155" font-family="Arial">• At 3,000 ft: winds only — no temperature forecast provided</text>
+  <text x="45" y="346" font-size="10" fill="#334155" font-family="Arial">• Wind speed of 9900 = light and variable</text>
+  <text x="45" y="362" font-size="10" fill="#334155" font-family="Arial">• Wind speed ≥ 100 kts: add 50 to the direction digits and subtract 100 from speed</text>
+
+  <!-- ABQ 9000 ft example callout -->
+  <rect x="45" y="375" width="530" height="24" fill="#fef3c7" stroke="#fbbf24" stroke-width="1" rx="3"/>
+  <text x="55" y="391" font-size="10" font-weight="bold" fill="#b45309" font-family="Arial">EXAMPLE (red highlight, ABQ 9,000 ft): "2925-18" = wind from 290° at 25 kts, temperature −18°C</text>
+</svg>

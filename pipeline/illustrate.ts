@@ -2,13 +2,13 @@ import Anthropic from "@anthropic-ai/sdk";
 import { env } from "./env";
 import type { SeedQuestion } from "./types";
 import { illustrationSystemPrompt, illustrationUserPrompt } from "./prompts";
-import { withRetry } from "./retry";
+import { withRetry, RetryableError } from "./retry";
 
 export function extractSvg(text: string): string {
   const start = text.indexOf("<svg");
   const end = text.lastIndexOf("</svg>");
   if (start === -1 || end === -1 || end < start) {
-    throw new Error("No SVG markup found in model response");
+    throw new RetryableError("No SVG markup found in model response");
   }
   return text.slice(start, end + "</svg>".length);
 }
@@ -20,7 +20,7 @@ export async function generateIllustration(
   return withRetry(async () => {
     const stream = client.messages.stream({
       model: "claude-opus-4-8",
-      max_tokens: 8192,
+      max_tokens: 16000,
       thinking: { type: "adaptive" },
       output_config: { effort: "high" },
       system: illustrationSystemPrompt(),

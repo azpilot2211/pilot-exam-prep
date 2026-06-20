@@ -32,7 +32,7 @@ export function BottomTabBar() {
               href={href}
               aria-current={active ? "page" : undefined}
               className={`flex-1 flex flex-col items-center py-2 gap-0.5 text-[10px] font-medium transition-colors ${
-                active ? "text-sky-400" : "text-slate-500"
+                active ? "text-sky-400" : "text-slate-400"
               }`}
             >
               <Icon size={20} />

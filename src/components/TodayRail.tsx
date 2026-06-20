@@ -28,15 +28,15 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
   return (
     <div className="space-y-4 sticky top-6">
       {/* Header */}
-      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+      <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
         Today · {month} flight plan
       </div>
 
       {/* Widget 1 — Exam Goal */}
       <div className="bg-slate-800 rounded-xl p-4 border border-slate-700">
-        <div className="text-xs text-slate-500 mb-2">Exam Goal</div>
+        <div className="text-xs text-slate-400 mb-2">Exam Goal</div>
         <div className="text-slate-200 font-semibold text-sm">Pass FAA Written</div>
-        <div className="text-xs text-slate-400 mb-3">Minimum: 70%</div>
+        <div className="text-xs text-slate-300 mb-3">Minimum: 70%</div>
         <div className="flex items-center gap-2">
           <div className="flex-1 h-1.5 rounded-full bg-slate-700">
             <div
@@ -49,7 +49,7 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
               aria-label="Exam readiness"
             />
           </div>
-          <span className="text-xs text-slate-400">{overallPct}%</span>
+          <span className="text-xs text-slate-300">{overallPct}%</span>
         </div>
         <div
           className={`mt-2 text-xs font-medium ${
@@ -62,10 +62,10 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
 
       {/* Widget 2 — Focus Stack */}
       <div className="bg-slate-800 rounded-xl p-4 border border-slate-700">
-        <div className="text-xs text-slate-500 mb-3">Focus Stack</div>
+        <div className="text-xs text-slate-400 mb-3">Focus Stack</div>
         <div className="space-y-3">
           {focusAreas.length === 0 ? (
-            <p className="text-xs text-slate-500">All chapters looking great!</p>
+            <p className="text-xs text-slate-300">All chapters looking great!</p>
           ) : (
             focusAreas.map(({ chapter, percent }) => (
               <div key={chapter.id} className="flex items-start justify-between gap-2">
@@ -73,7 +73,7 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
                   <div className="text-sm text-slate-200 leading-snug truncate">
                     {chapter.title}
                   </div>
-                  <div className="text-xs text-slate-500">{percent}% mastery</div>
+                  <div className="text-xs text-slate-400">{percent}% mastery</div>
                 </div>
                 <Link
                   href={`/study/${chapter.slug}`}
@@ -89,11 +89,11 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
 
       {/* Widget 3 — Study Streak */}
       <div className="bg-slate-800 rounded-xl p-4 border border-slate-700">
-        <div className="text-xs text-slate-500 mb-2">Study Streak</div>
+        <div className="text-xs text-slate-400 mb-2">Study Streak</div>
         <div className="text-2xl font-bold text-white mb-3">
           {streak > 0 ? "🔥" : "⚡"}{" "}
           <span>{streak}</span>{" "}
-          <span className="text-sm font-normal text-slate-400">
+          <span className="text-sm font-normal text-slate-300">
             {streak === 1 ? "day" : "days"}
           </span>
         </div>
@@ -106,22 +106,22 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
                 }`}
                 title={`${letter}: ${active ? "studied" : "no activity"}`}
               />
-              <span className="text-[9px] text-slate-600">{letter}</span>
+              <span className="text-[9px] text-slate-500">{letter}</span>
             </div>
           ))}
         </div>
         {streak === 0 && (
-          <p className="text-xs text-slate-500 mt-2">Answer a question to start your streak!</p>
+          <p className="text-xs text-slate-300 mt-2">Answer a question to start your streak!</p>
         )}
       </div>
 
       {/* Widget 4 — Weak-Area Drill (Pro only) */}
       <div className="bg-slate-800 rounded-xl p-4 border border-slate-700">
-        <div className="text-xs text-slate-500 mb-3">Weak-Area Drill</div>
+        <div className="text-xs text-slate-400 mb-3">Weak-Area Drill</div>
         {hasAccess(tier, "pro") ? (
           <div className="space-y-2">
             {focusAreas.length === 0 ? (
-              <p className="text-xs text-slate-500">No weak areas — nice work!</p>
+              <p className="text-xs text-slate-300">No weak areas — nice work!</p>
             ) : (
               focusAreas.map(({ chapter }) => (
                 <Link
@@ -136,8 +136,8 @@ export function TodayRail({ overallPct, focusAreas, streak, recentDays, tier }: 
           </div>
         ) : (
           <div className="text-center py-1">
-            <Lock size={16} className="text-slate-500 mx-auto mb-2" />
-            <p className="text-xs text-slate-500 mb-2">Targeted drilling is a Pro feature</p>
+            <Lock size={16} className="text-slate-400 mx-auto mb-2" />
+            <p className="text-xs text-slate-300 mb-2">Targeted drilling is a Pro feature</p>
             <Link
               href="/course"
               className="text-xs font-semibold text-sky-400 hover:text-sky-300"

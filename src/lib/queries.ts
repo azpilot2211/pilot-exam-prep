@@ -243,7 +243,7 @@ export async function getQuestionsForExam(): Promise<ExamQuestion[]> {
   const [questionsRes, optionsRes] = await Promise.all([
     supabase
       .from("questions")
-      .select("id, stem, chapters!inner(slug, title)")
+      .select("id, stem, figure_image_url, chapters!inner(slug, title)")
       .in("id", ids),
     supabase
       .from("answer_options")
@@ -268,6 +268,7 @@ export async function getQuestionsForExam(): Promise<ExamQuestion[]> {
     return {
       id: q.id,
       stem: q.stem,
+      figureUrl: (q as { figure_image_url?: string | null }).figure_image_url ?? null,
       chapterSlug: chapter.slug,
       chapterTitle: chapter.title,
       options: optsByQ.get(q.id) ?? [],

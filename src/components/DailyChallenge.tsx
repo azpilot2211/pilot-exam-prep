@@ -46,13 +46,13 @@ export function DailyChallenge({ question, options, chapterTitle, compact }: Pro
     <>
       {compact ? (
         /* ── Card mode (used in dashboard action cards row) ── */
-        <div className="bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-amber-500 shadow-md shadow-black/30">
+        <div className="flex flex-col bg-slate-800 rounded-xl p-5 border border-slate-600 border-t-2 border-t-amber-500 shadow-md shadow-black/30">
           <Zap size={20} className="text-amber-400 mb-3" />
           <div className="text-slate-200 font-semibold text-sm mb-1">Daily Challenge</div>
-          <div className="text-slate-400 text-xs mb-4 line-clamp-2">{question.stem}</div>
+          <div className="text-slate-300 text-xs mb-4 line-clamp-2">{question.stem}</div>
           <button
             onClick={() => setOpen(true)}
-            className="text-xs font-semibold text-sky-400 hover:text-sky-300"
+            className="mt-auto pt-1 self-start text-xs font-semibold text-sky-400 hover:text-sky-300"
           >
             Answer it →
           </button>

@@ -1,0 +1,145 @@
+<svg viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="640" height="520" fill="#f8f9fa"/>
+  <text x="320" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">WEIGHT AND BALANCE — LOADING TABLE</text>
+  <text x="320" y="38" text-anchor="middle" font-size="10" fill="#475569">Figure 3 · Moment values in lb-in/100 · Datum: Firewall</text>
+
+  <!-- Aircraft diagram (simplified top-down) -->
+  <text x="320" y="55" text-anchor="middle" font-size="9" fill="#64748b">Basic empty weight: 1,640 lbs · Empty moment/100: 624.9 · Max gross weight: 2,300 lbs</text>
+
+  <!-- Header row -->
+  <rect x="30" y="65" width="580" height="24" fill="#1e3a5f" rx="2"/>
+  <text x="105" y="81" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Station / Item</text>
+  <text x="250" y="81" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Arm (inches)</text>
+  <text x="375" y="74" text-anchor="middle" font-size="9" font-weight="bold" fill="white">Weight</text>
+  <text x="375" y="85" text-anchor="middle" font-size="9" font-weight="bold" fill="white">(lbs)</text>
+  <text x="510" y="74" text-anchor="middle" font-size="9" font-weight="bold" fill="white">Moment / 100</text>
+  <text x="510" y="85" text-anchor="middle" font-size="9" font-weight="bold" fill="white">(lb-in)</text>
+  <line x1="180" y1="65" x2="180" y2="89" stroke="white" stroke-width="0.5"/>
+  <line x1="320" y1="65" x2="320" y2="89" stroke="white" stroke-width="0.5"/>
+  <line x1="440" y1="65" x2="440" y2="89" stroke="white" stroke-width="0.5"/>
+
+  <!-- Section: Front Seats -->
+  <rect x="30" y="89" width="580" height="16" fill="#dbeafe"/>
+  <text x="35" y="101" font-size="9" font-weight="bold" fill="#1e40af">FRONT SEATS (Arm: 37.0 in)</text>
+
+  <!-- Front seat rows -->
+  <rect x="30" y="105" width="580" height="15" fill="white"/>
+  <text x="105" y="116" text-anchor="middle" font-size="9" fill="#334155">120 lbs</text>
+  <text x="250" y="116" text-anchor="middle" font-size="9" fill="#334155">37.0</text>
+  <text x="375" y="116" text-anchor="middle" font-size="9" fill="#334155">120</text>
+  <text x="510" y="116" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">44.4</text>
+
+  <rect x="30" y="120" width="580" height="15" fill="#f8fafc"/>
+  <text x="105" y="131" text-anchor="middle" font-size="9" fill="#334155">140 lbs</text>
+  <text x="250" y="131" text-anchor="middle" font-size="9" fill="#334155">37.0</text>
+  <text x="375" y="131" text-anchor="middle" font-size="9" fill="#334155">140</text>
+  <text x="510" y="131" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">51.8</text>
+
+  <rect x="30" y="135" width="580" height="15" fill="white"/>
+  <text x="105" y="146" text-anchor="middle" font-size="9" fill="#334155">160 lbs</text>
+  <text x="250" y="146" text-anchor="middle" font-size="9" fill="#334155">37.0</text>
+  <text x="375" y="146" text-anchor="middle" font-size="9" fill="#334155">160</text>
+  <text x="510" y="146" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">59.2</text>
+
+  <rect x="30" y="150" width="580" height="15" fill="#f8fafc"/>
+  <text x="105" y="161" text-anchor="middle" font-size="9" fill="#334155">180 lbs</text>
+  <text x="250" y="161" text-anchor="middle" font-size="9" fill="#334155">37.0</text>
+  <text x="375" y="161" text-anchor="middle" font-size="9" fill="#334155">180</text>
+  <text x="510" y="161" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">66.6</text>
+
+  <rect x="30" y="165" width="580" height="15" fill="white"/>
+  <text x="105" y="176" text-anchor="middle" font-size="9" fill="#334155">200 lbs</text>
+  <text x="250" y="176" text-anchor="middle" font-size="9" fill="#334155">37.0</text>
+  <text x="375" y="176" text-anchor="middle" font-size="9" fill="#334155">200</text>
+  <text x="510" y="176" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">74.0</text>
+
+  <!-- Section: Rear Seats -->
+  <rect x="30" y="180" width="580" height="16" fill="#dcfce7"/>
+  <text x="35" y="192" font-size="9" font-weight="bold" fill="#15803d">REAR SEATS (Arm: 73.0 in)</text>
+
+  <rect x="30" y="196" width="580" height="15" fill="white"/>
+  <text x="105" y="207" text-anchor="middle" font-size="9" fill="#334155">120 lbs</text>
+  <text x="250" y="207" text-anchor="middle" font-size="9" fill="#334155">73.0</text>
+  <text x="375" y="207" text-anchor="middle" font-size="9" fill="#334155">120</text>
+  <text x="510" y="207" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">87.6</text>
+
+  <rect x="30" y="211" width="580" height="15" fill="#f8fafc"/>
+  <text x="105" y="222" text-anchor="middle" font-size="9" fill="#334155">160 lbs</text>
+  <text x="250" y="222" text-anchor="middle" font-size="9" fill="#334155">73.0</text>
+  <text x="375" y="222" text-anchor="middle" font-size="9" fill="#334155">160</text>
+  <text x="510" y="222" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">116.8</text>
+
+  <rect x="30" y="226" width="580" height="15" fill="white"/>
+  <text x="105" y="237" text-anchor="middle" font-size="9" fill="#334155">200 lbs</text>
+  <text x="250" y="237" text-anchor="middle" font-size="9" fill="#334155">73.0</text>
+  <text x="375" y="237" text-anchor="middle" font-size="9" fill="#334155">200</text>
+  <text x="510" y="237" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">146.0</text>
+
+  <rect x="30" y="241" width="580" height="15" fill="#f8fafc"/>
+  <text x="105" y="252" text-anchor="middle" font-size="9" fill="#334155">280 lbs</text>
+  <text x="250" y="252" text-anchor="middle" font-size="9" fill="#334155">73.0</text>
+  <text x="375" y="252" text-anchor="middle" font-size="9" fill="#334155">280</text>
+  <text x="510" y="252" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">204.4</text>
+
+  <!-- Section: Fuel -->
+  <rect x="30" y="256" width="580" height="16" fill="#fef3c7"/>
+  <text x="35" y="268" font-size="9" font-weight="bold" fill="#b45309">USABLE FUEL (Arm: 48.0 in · 6 lbs/gal)</text>
+
+  <rect x="30" y="272" width="580" height="15" fill="white"/>
+  <text x="105" y="283" text-anchor="middle" font-size="9" fill="#334155">20 gal / 120 lbs</text>
+  <text x="250" y="283" text-anchor="middle" font-size="9" fill="#334155">48.0</text>
+  <text x="375" y="283" text-anchor="middle" font-size="9" fill="#334155">120</text>
+  <text x="510" y="283" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">57.6</text>
+
+  <rect x="30" y="287" width="580" height="15" fill="#f8fafc"/>
+  <text x="105" y="298" text-anchor="middle" font-size="9" fill="#334155">30 gal / 180 lbs</text>
+  <text x="250" y="298" text-anchor="middle" font-size="9" fill="#334155">48.0</text>
+  <text x="375" y="298" text-anchor="middle" font-size="9" fill="#334155">180</text>
+  <text x="510" y="298" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">86.4</text>
+
+  <rect x="30" y="302" width="580" height="15" fill="white"/>
+  <text x="105" y="313" text-anchor="middle" font-size="9" fill="#334155">40 gal / 240 lbs</text>
+  <text x="250" y="313" text-anchor="middle" font-size="9" fill="#334155">48.0</text>
+  <text x="375" y="313" text-anchor="middle" font-size="9" fill="#334155">240</text>
+  <text x="510" y="313" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">115.2</text>
+
+  <!-- Section: Baggage -->
+  <rect x="30" y="317" width="580" height="16" fill="#fce7f3"/>
+  <text x="35" y="329" font-size="9" font-weight="bold" fill="#9d174d">BAGGAGE (Arm: 95.0 in · Max 120 lbs)</text>
+
+  <rect x="30" y="333" width="580" height="15" fill="white"/>
+  <text x="105" y="344" text-anchor="middle" font-size="9" fill="#334155">40 lbs</text>
+  <text x="250" y="344" text-anchor="middle" font-size="9" fill="#334155">95.0</text>
+  <text x="375" y="344" text-anchor="middle" font-size="9" fill="#334155">40</text>
+  <text x="510" y="344" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">38.0</text>
+
+  <rect x="30" y="348" width="580" height="15" fill="#f8fafc"/>
+  <text x="105" y="359" text-anchor="middle" font-size="9" fill="#334155">60 lbs</text>
+  <text x="250" y="359" text-anchor="middle" font-size="9" fill="#334155">95.0</text>
+  <text x="375" y="359" text-anchor="middle" font-size="9" fill="#334155">60</text>
+  <text x="510" y="359" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">57.0</text>
+
+  <rect x="30" y="363" width="580" height="15" fill="white"/>
+  <text x="105" y="374" text-anchor="middle" font-size="9" fill="#334155">100 lbs</text>
+  <text x="250" y="374" text-anchor="middle" font-size="9" fill="#334155">95.0</text>
+  <text x="375" y="374" text-anchor="middle" font-size="9" fill="#334155">100</text>
+  <text x="510" y="374" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e293b">95.0</text>
+
+  <!-- Column lines -->
+  <line x1="180" y1="89" x2="180" y2="378" stroke="#94a3b8" stroke-width="0.7"/>
+  <line x1="320" y1="89" x2="320" y2="378" stroke="#94a3b8" stroke-width="0.7"/>
+  <line x1="440" y1="89" x2="440" y2="378" stroke="#94a3b8" stroke-width="0.7"/>
+
+  <!-- Border -->
+  <rect x="30" y="65" width="580" height="313" fill="none" stroke="#334155" stroke-width="1.5" rx="2"/>
+
+  <!-- Example calculation -->
+  <rect x="30" y="393" width="580" height="120" fill="#f0fdf4" stroke="#86efac" stroke-width="1" rx="4"/>
+  <text x="45" y="410" font-size="10" font-weight="bold" fill="#15803d">SAMPLE CALCULATION:</text>
+  <text x="45" y="427" font-size="9.5" fill="#334155">Empty aircraft: 1,640 lbs ..................... Moment/100 = 624.9</text>
+  <text x="45" y="442" font-size="9.5" fill="#334155">Pilot 180 lbs + Passenger 160 lbs (front): 340 lbs ....... M/100 = 66.6 + 59.2 = 125.8</text>
+  <text x="45" y="457" font-size="9.5" fill="#334155">Rear passengers: 0 lbs ........................ M/100 = 0</text>
+  <text x="45" y="472" font-size="9.5" fill="#334155">Fuel: 40 gal / 240 lbs ........................ M/100 = 115.2</text>
+  <text x="45" y="487" font-size="9.5" fill="#334155">Baggage: 60 lbs .............................. M/100 = 57.0</text>
+  <text x="45" y="504" font-size="9.5" font-weight="bold" fill="#15803d">TOTAL: Weight = 2,280 lbs · Moment/100 = 922.9 · CG = 92,290 / 2,280 = 40.5 in</text>
+</svg>

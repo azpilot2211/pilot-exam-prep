@@ -1,0 +1,112 @@
+<svg viewBox="0 0 620 480" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="620" height="480" fill="#f8f9fa"/>
+  <text x="310" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">CENTER OF GRAVITY ENVELOPE</text>
+  <text x="310" y="38" text-anchor="middle" font-size="10" fill="#475569">Figure 4 · Datum: Leading edge of wing (approx.) · CG limits per Airplane Flight Manual</text>
+
+  <!-- Chart area: x=90..560, y=55..410 -->
+  <!-- X axis: 33 to 50 inches (17 in range, 470 px → ~27.6 px/in) -->
+  <!-- Y axis: 1400 to 2400 lbs (1000 lbs range, 355 px → 0.355 px/lb, inverted) -->
+  <!-- x(in) = 90 + (in - 33) * 27.6 -->
+  <!-- y(lbs) = 410 - (lbs - 1400) * 0.355 -->
+
+  <!-- Grid background -->
+  <rect x="90" y="55" width="470" height="355" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Grid lines vertical (every 2 inches: 35, 37, 39, 41, 43, 45, 47, 49) -->
+  <line x1="145" y1="55" x2="145" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 35 in -->
+  <line x1="200" y1="55" x2="200" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 37 in -->
+  <line x1="256" y1="55" x2="256" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 39 in -->
+  <line x1="311" y1="55" x2="311" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 41 in -->
+  <line x1="366" y1="55" x2="366" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 43 in -->
+  <line x1="421" y1="55" x2="421" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 45 in -->
+  <line x1="476" y1="55" x2="476" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 47 in -->
+  <line x1="532" y1="55" x2="532" y2="410" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 49 in -->
+
+  <!-- Grid lines horizontal (every 100 lbs from 1500 to 2300) -->
+  <line x1="90" y1="374" x2="560" y2="374" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 1500 -->
+  <line x1="90" y1="339" x2="560" y2="339" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 1600 -->
+  <line x1="90" y1="303" x2="560" y2="303" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 1700 -->
+  <line x1="90" y1="267" x2="560" y2="267" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 1800 -->
+  <line x1="90" y1="232" x2="560" y2="232" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 1900 -->
+  <line x1="90" y1="197" x2="560" y2="197" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 2000 -->
+  <line x1="90" y1="162" x2="560" y2="162" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 2100 -->
+  <line x1="90" y1="126" x2="560" y2="126" stroke="#e2e8f0" stroke-width="0.7"/> <!-- 2200 -->
+  <line x1="90" y1="90" x2="560" y2="90" stroke="#e2e8f0" stroke-width="0.7"/>  <!-- 2300 -->
+
+  <!-- CG Envelope shaded region -->
+  <!-- Corners: (35,1500)=(145,374), (35,2300)=(145,90), (47.3,2300)=(430,90), (47.3,1500)=(430,374) -->
+  <polygon points="145,374 145,90 430,90 430,374" fill="#bfdbfe" opacity="0.5" stroke="#1d4ed8" stroke-width="2.5"/>
+
+  <!-- Forward limit line (bold, dashed) -->
+  <line x1="145" y1="374" x2="145" y2="90" stroke="#1d4ed8" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- Aft limit line (bold, dashed) -->
+  <line x1="430" y1="374" x2="430" y2="90" stroke="#1d4ed8" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- Max gross weight line (horizontal, bold) -->
+  <line x1="90" y1="90" x2="560" y2="90" stroke="#dc2626" stroke-width="2" stroke-dasharray="8,4"/>
+
+  <!-- "APPROVED OPERATING RANGE" label inside envelope -->
+  <text x="287" y="240" text-anchor="middle" font-size="10" fill="#1d4ed8" font-weight="bold">APPROVED</text>
+  <text x="287" y="254" text-anchor="middle" font-size="10" fill="#1d4ed8" font-weight="bold">OPERATING</text>
+  <text x="287" y="268" text-anchor="middle" font-size="10" fill="#1d4ed8" font-weight="bold">RANGE</text>
+
+  <!-- Example Point A: CG=40.5 in, weight=2,280 lbs → WITHIN limits -->
+  <!-- x = 90 + (40.5-33)*27.6 = 90+207 = 297 -->
+  <!-- y = 410 - (2280-1400)*0.355 = 410-312.4 = 97.6 ≈ 98 -->
+  <circle cx="297" cy="98" r="7" fill="#16a34a" stroke="white" stroke-width="1.5"/>
+  <text x="312" y="92" font-size="9" fill="#15803d" font-weight="bold">A</text>
+  <text x="312" y="104" font-size="8" fill="#15803d">CG 40.5 in / 2,280 lbs</text>
+  <text x="312" y="115" font-size="8" fill="#15803d">✓ Within Limits</text>
+
+  <!-- Example Point B: CG=47.9 in, weight=2,210 lbs → OUTSIDE aft limit -->
+  <!-- x = 90 + (47.9-33)*27.6 = 90+411 = 501 -->
+  <!-- y = 410 - (2210-1400)*0.355 = 410-287.6 = 122.4 ≈ 122 -->
+  <circle cx="455" cy="136" r="7" fill="#dc2626" stroke="white" stroke-width="1.5"/>
+  <text x="468" y="130" font-size="9" fill="#dc2626" font-weight="bold">B</text>
+  <text x="468" y="142" font-size="8" fill="#dc2626">CG 47.9 in / 2,210 lbs</text>
+  <text x="468" y="153" font-size="8" fill="#dc2626">✗ Aft of Limit</text>
+
+  <!-- X axis labels -->
+  <text x="90" y="426" text-anchor="middle" font-size="9" fill="#64748b">33</text>
+  <text x="145" y="426" text-anchor="middle" font-size="9" fill="#1d4ed8" font-weight="bold">35</text>
+  <text x="200" y="426" text-anchor="middle" font-size="9" fill="#334155">37</text>
+  <text x="256" y="426" text-anchor="middle" font-size="9" fill="#334155">39</text>
+  <text x="311" y="426" text-anchor="middle" font-size="9" fill="#334155">41</text>
+  <text x="366" y="426" text-anchor="middle" font-size="9" fill="#334155">43</text>
+  <text x="421" y="426" text-anchor="middle" font-size="9" fill="#334155">45</text>
+  <text x="430" y="440" text-anchor="middle" font-size="9" fill="#1d4ed8" font-weight="bold">47.3</text>
+  <text x="532" y="426" text-anchor="middle" font-size="9" fill="#64748b">49</text>
+  <text x="560" y="426" text-anchor="middle" font-size="9" fill="#64748b">50</text>
+
+  <!-- X axis title -->
+  <text x="325" y="460" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">CG Location — Inches Aft of Datum</text>
+
+  <!-- Y axis labels -->
+  <text x="82" y="414" text-anchor="end" font-size="9" fill="#334155">1,400</text>
+  <text x="82" y="378" text-anchor="end" font-size="9" fill="#334155">1,500</text>
+  <text x="82" y="342" text-anchor="end" font-size="9" fill="#334155">1,600</text>
+  <text x="82" y="306" text-anchor="end" font-size="9" fill="#334155">1,700</text>
+  <text x="82" y="271" text-anchor="end" font-size="9" fill="#334155">1,800</text>
+  <text x="82" y="235" text-anchor="end" font-size="9" fill="#334155">1,900</text>
+  <text x="82" y="200" text-anchor="end" font-size="9" fill="#334155">2,000</text>
+  <text x="82" y="165" text-anchor="end" font-size="9" fill="#334155">2,100</text>
+  <text x="82" y="129" text-anchor="end" font-size="9" fill="#334155">2,200</text>
+  <text x="82" y="93" text-anchor="end" font-size="9" fill="#dc2626" font-weight="bold">2,300</text>
+
+  <!-- Y axis title (rotated) -->
+  <text x="22" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155" transform="rotate(-90 22 232)">Gross Weight (lbs)</text>
+
+  <!-- Chart border -->
+  <rect x="90" y="55" width="470" height="355" fill="none" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Max gross weight annotation -->
+  <text x="565" y="93" font-size="8" fill="#dc2626" font-weight="bold">MAX 2,300 lbs</text>
+
+  <!-- Limit annotations -->
+  <text x="147" y="72" font-size="8" fill="#1d4ed8" font-weight="bold">FWD LIMIT</text>
+  <text x="147" y="82" font-size="8" fill="#1d4ed8">35.0 in</text>
+
+  <text x="375" y="72" font-size="8" fill="#1d4ed8" font-weight="bold">AFT LIMIT</text>
+  <text x="375" y="82" font-size="8" fill="#1d4ed8">47.3 in</text>
+</svg>

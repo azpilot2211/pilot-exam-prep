@@ -1,5 +1,5 @@
 import { getProfile, getUserAllMastery, getPublishedQuestionCounts } from "@/lib/queries";
-import { computeOverallPct } from "@/lib/scoring";
+import { summarizeMastery, readinessPercent } from "@/lib/scoring";
 import { Sidebar } from "./Sidebar";
 import { BottomTabBar } from "./BottomTabBar";
 
@@ -17,7 +17,8 @@ export async function FlightDeckShell({ userId, userEmail, children }: Props) {
   ]);
 
   const totalPublished = [...questionCounts.values()].reduce((a, b) => a + b, 0);
-  const overallPct = computeOverallPct(masteryMap, totalPublished);
+  const { correct } = summarizeMastery(masteryMap);
+  const overallPct = readinessPercent(correct, totalPublished);
   const p = profile as { display_name?: string | null; avatar_color?: string | null } | null;
   const displayName = p?.display_name ?? null;
   const avatarColor = p?.avatar_color ?? "sky";
