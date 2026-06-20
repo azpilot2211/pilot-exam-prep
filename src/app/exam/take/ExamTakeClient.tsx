@@ -29,7 +29,7 @@ export function ExamTakeClient({ questions, durationSeconds }: Props) {
 
   if (phase === "saving") {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center text-slate-500 text-sm">
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center text-slate-400 text-sm">
         Saving your results…
       </div>
     );

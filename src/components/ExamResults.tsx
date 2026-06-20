@@ -99,7 +99,7 @@ export function ExamResults({
       {/* Missed questions */}
       {missedQuestions.length > 0 && (
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
             Review these ({missedQuestions.length})
           </p>
           {missedQuestions.map((q) => {
@@ -136,7 +136,7 @@ export function ExamResults({
         {!isDemo && (
           <Link
             href="/exam"
-            className="flex-1 text-center py-3 border border-slate-300 rounded-xl text-sm font-medium text-slate-700 hover:bg-white transition-colors"
+            className="flex-1 text-center py-3 border border-slate-600 rounded-xl text-sm font-medium text-slate-200 hover:bg-slate-800 transition-colors"
           >
             Back to exam
           </Link>

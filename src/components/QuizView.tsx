@@ -72,7 +72,7 @@ export function QuizView({ chapterSlug, chapterTitle, items }: Props) {
 
         {wrong.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
               Review these ({wrong.length})
             </p>
             {wrong.map((a) => {
@@ -93,7 +93,7 @@ export function QuizView({ chapterSlug, chapterTitle, items }: Props) {
         <div className="flex gap-3">
           <Link
             href={`/quiz/${chapterSlug}`}
-            className="flex-1 text-center py-3 border border-slate-300 rounded-xl text-sm font-medium text-slate-700 hover:bg-white transition-colors"
+            className="flex-1 text-center py-3 border border-slate-600 rounded-xl text-sm font-medium text-slate-200 hover:bg-slate-800 transition-colors"
           >
             Retry
           </Link>
@@ -111,7 +111,7 @@ export function QuizView({ chapterSlug, chapterTitle, items }: Props) {
   return (
     <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between text-sm text-slate-600">
+      <div className="flex items-center justify-between text-sm text-slate-400">
         <span>{chapterTitle} Quiz</span>
         <span>
           {index + 1} / {items.length}
@@ -138,7 +138,7 @@ export function QuizView({ chapterSlug, chapterTitle, items }: Props) {
       )}
 
       {/* Question */}
-      <p className="text-lg font-medium text-slate-900 leading-relaxed">
+      <p className="text-lg font-medium text-white leading-relaxed">
         {current.question.stem}
       </p>
 

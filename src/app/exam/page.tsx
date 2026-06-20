@@ -22,7 +22,7 @@ export default async function ExamPage() {
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
-      <h1 className="text-2xl font-bold text-slate-900">Practice Exam</h1>
+      <h1 className="text-2xl font-bold text-white">Practice Exam</h1>
 
       {/* Readiness card */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6">

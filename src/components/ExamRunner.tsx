@@ -81,7 +81,7 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
 
       {/* Header */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-slate-600">
+        <span className="text-sm text-slate-400">
           Question {index + 1} of {items.length}
         </span>
         <div className="flex items-center gap-4">
@@ -135,7 +135,7 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
       )}
 
       {/* Question stem */}
-      <p className="text-base font-medium text-slate-900 leading-relaxed">{current.stem}</p>
+      <p className="text-base font-medium text-white leading-relaxed">{current.stem}</p>
 
       {/* Answer options */}
       <div className="space-y-2">
@@ -161,8 +161,8 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
           onClick={toggleFlag}
           className={`text-xs font-medium px-3 py-2 rounded-lg border transition-colors ${
             isFlagged
-              ? "border-amber-400 text-amber-600 bg-amber-50"
-              : "border-slate-200 text-slate-600 hover:border-slate-300"
+              ? "border-amber-400 text-amber-300 bg-amber-500/10"
+              : "border-slate-600 text-slate-300 hover:border-slate-500"
           }`}
         >
           {isFlagged ? "⚑ Flagged" : "⚐ Flag"}
@@ -171,14 +171,14 @@ export function ExamRunner({ items, durationSeconds, onComplete }: Props) {
           <button
             onClick={() => setIndex((i) => Math.max(0, i - 1))}
             disabled={index === 0}
-            className="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 disabled:opacity-40 hover:border-slate-300 transition-colors"
+            className="px-4 py-2 border border-slate-600 rounded-lg text-sm text-slate-300 disabled:opacity-40 hover:border-slate-500 transition-colors"
           >
             ← Prev
           </button>
           <button
             onClick={() => setIndex((i) => Math.min(items.length - 1, i + 1))}
             disabled={index === items.length - 1}
-            className="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 disabled:opacity-40 hover:border-slate-300 transition-colors"
+            className="px-4 py-2 border border-slate-600 rounded-lg text-sm text-slate-300 disabled:opacity-40 hover:border-slate-500 transition-colors"
           >
             Next →
           </button>

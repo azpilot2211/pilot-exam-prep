@@ -43,8 +43,8 @@ export default async function ProgressPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 py-8 space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Progress</h1>
-        <p className="text-slate-600 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-white">Progress</h1>
+        <p className="text-slate-400 text-sm mt-1">
           {totalAnswered > 0
             ? `${totalCorrect} of ${totalAnswered} answered correctly`
             : "You haven't answered any questions yet."}

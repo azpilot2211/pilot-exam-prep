@@ -24,7 +24,8 @@ export default async function CoursePage() {
   const tier = await getTier();
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-10">
+    <main className="min-h-screen bg-slate-50">
+      <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-slate-900">Plans &amp; Pricing</h1>
         <p className="text-slate-500 mt-2 text-sm">
@@ -114,6 +115,7 @@ export default async function CoursePage() {
         Pass guarantee: study the full Pro course and if you don&apos;t pass, email us for a
         full refund. <Link href="/account" className="text-sky-600 hover:underline">Your account →</Link>
       </p>
+      </div>
     </main>
   );
 }
