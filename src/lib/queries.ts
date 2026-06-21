@@ -54,20 +54,17 @@ export async function getChapterBySlug(slug: string): Promise<Chapter | null> {
 
 export async function getPublishedQuestions(chapterId: string): Promise<Question[]> {
   const supabase = await createClient();
-  const { data: published } = await supabase
-    .from("question_content")
-    .select("question_id")
-    .eq("published", true);
-  const publishedIds = (published ?? []).map((r) => r.question_id);
-  if (publishedIds.length === 0) return [];
+  // Single inner-join query: this chapter's questions that have published content.
+  // Avoids fetching every published id and passing them as a `.in(...)` list, which
+  // overruns the request URL length limit as the question bank scales.
   const { data, error } = await supabase
     .from("questions")
-    .select("*")
+    .select("*, question_content!inner(published)")
     .eq("chapter_id", chapterId)
-    .in("id", publishedIds)
+    .eq("question_content.published", true)
     .order("display_order");
   if (error) throw new Error(error.message);
-  return (data ?? []) as Question[];
+  return (data ?? []) as unknown as Question[];
 }
 
 export async function getQuestion(questionId: string): Promise<{
@@ -141,18 +138,14 @@ export async function getCourseAudioUrls(): Promise<string[]> {
 
 export async function getPublishedQuestionCounts(): Promise<Map<string, number>> {
   const supabase = await createClient();
-  const { data: published } = await supabase
-    .from("question_content")
-    .select("question_id")
-    .eq("published", true);
-  const publishedIds = (published ?? []).map((r) => r.question_id);
-  if (publishedIds.length === 0) return new Map();
-  const { data: questions } = await supabase
+  // Inner-join published content → questions, counted per chapter in one query
+  // (no unbounded `.in(publishedIds)` list in the request URL).
+  const { data } = await supabase
     .from("questions")
-    .select("chapter_id")
-    .in("id", publishedIds);
+    .select("chapter_id, question_content!inner(published)")
+    .eq("question_content.published", true);
   const counts = new Map<string, number>();
-  for (const q of questions ?? []) {
+  for (const q of (data ?? []) as { chapter_id: string }[]) {
     counts.set(q.chapter_id, (counts.get(q.chapter_id) ?? 0) + 1);
   }
   return counts;
