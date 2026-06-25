@@ -14,4 +14,9 @@ export const env = {
   anthropicKey: () => required("ANTHROPIC_API_KEY"),
   elevenLabsKey: () => required("ELEVENLABS_API_KEY"),
   elevenLabsVoiceId: () => process.env.ELEVENLABS_VOICE_ID || "21m00Tcm4TlvDq8ikWAM",
+  r2AccountId: () => required("R2_ACCOUNT_ID"),
+  r2AccessKeyId: () => required("R2_ACCESS_KEY_ID"),
+  r2Secret: () => required("R2_SECRET_ACCESS_KEY"),
+  r2PublicUrl: () => required("R2_PUBLIC_URL").replace(/\/$/, ""),
+  r2Bucket: () => process.env.R2_BUCKET || "audio",
 };

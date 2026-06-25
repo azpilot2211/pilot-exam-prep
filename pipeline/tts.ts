@@ -1,5 +1,24 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { AwsClient } from "aws4fetch";
 import { env } from "./env";
+
+/** Cloudflare R2 (S3-compatible, zero egress). Used for lesson audio. */
+export function r2() {
+  return new AwsClient({
+    accessKeyId: env.r2AccessKeyId(),
+    secretAccessKey: env.r2Secret(),
+    region: "auto",
+    service: "s3",
+  });
+}
+
+export function r2Endpoint(key: string): string {
+  return `https://${env.r2AccountId()}.r2.cloudflarestorage.com/${env.r2Bucket()}/${key}`;
+}
+
+export function r2PublicUrl(key: string): string {
+  return `${env.r2PublicUrl()}/${key}`;
+}
 
 export async function synthesizeNarration(script: string): Promise<Buffer> {
   const voiceId = env.elevenLabsVoiceId();
@@ -27,17 +46,18 @@ export async function synthesizeNarration(script: string): Promise<Buffer> {
 }
 
 export async function uploadAudio(
-  admin: SupabaseClient,
+  _admin: SupabaseClient,
   sourceRef: string,
   audio: Buffer
 ): Promise<string> {
-  const path = `${sourceRef}.mp3`;
-  const { error } = await admin.storage
-    .from("audio")
-    .upload(path, audio, { contentType: "audio/mpeg", upsert: true });
-  if (error) throw new Error(`Audio upload failed: ${error.message}`);
-  const { data } = admin.storage.from("audio").getPublicUrl(path);
-  return data.publicUrl;
+  const key = `${sourceRef}.mp3`;
+  const res = await r2().fetch(r2Endpoint(key), {
+    method: "PUT",
+    body: new Uint8Array(audio),
+    headers: { "content-type": "audio/mpeg" },
+  });
+  if (!res.ok) throw new Error(`R2 upload failed: ${res.status} ${await res.text()}`);
+  return r2PublicUrl(key);
 }
 
 export function adminClient(): SupabaseClient {
